@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos\\sparkles-video-720.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "53gGXllOkTLNhxR8MNtgas00pk4PRvZ5FlSlyPuO5j7w",
+      "assetId": "SjYxTYIk5FRN6p9l5Ortlwox4sxxKSjAvU11YCUtkrc",
+      "playbackId": "Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs"
+    }
+  },
+  "createdAt": 1767701430483,
+  "updatedAt": 1767701607967,
+  "size": 3887391,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/Uj3xQat00Dsg8023Y01IKzYBlTnnp567ad5ZLQ2c00hZlOs/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAACQAgCdASoQAAkAAQAcJaACdLoAfhmC/+cyvm75AAD+/avE8LOpsL73m+olTzve39/FVHBwhR34M+f09QBb7Bdc82gMS8l5IS8NfuO1N12LH1K1XDlm0gruzAHNRc/bpIervK2IHQVXn//sHjr+5Bz/u8KIYb35vNS/NniPB//H/Eo8L5lXaai73fKtnsZZ40uvmAAA"
+}
