@@ -1,6 +1,7 @@
 import { Plane } from "lucide-react";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import Link from "next/link";
+import GetStartedButtonMolecule from "../../molecules/get-started-button/GetStartedButton.molecule";
 
 const Navbar2Organism = () => {
   const navItems = [
@@ -8,23 +9,41 @@ const Navbar2Organism = () => {
       label: "Home",
       href: "/",
     },
+    {
+      label: "Pricing",
+      href: "/pricing",
+    },
+    {
+      label: "Contact-us",
+      href: "/contact-us",
+    },
   ];
 
   return (
-    <div className="grid grid-cols-3 justify-between mt-4 w-full border border-yellow-500">
+    <div className="grid grid-cols-3 justify-between mt-4 w-full">
       {/* Logo */}
-      <div className="flex w-fit col-span-1 gap-2 items-center border border-green-500">
+
+      <Link href={"/"} className="flex w-fit col-span-1 gap-2 items-center">
         <Plane className="size-8 text-blue-500/50" />
         <H2>Trip Planner AI</H2>
-      </div>
+      </Link>
 
       {/* Nav Menu */}
-      <div className="flex col-span-1 items-center gap-4 w-full">
+      <div className="flex col-span-1 items-center gap-4 w-full justify-center">
         {navItems.map((item, index) => (
-          <Link href={item.href} key={index} className="hover:scale-105">
+          <Link
+            href={item.href}
+            key={index}
+            className="hover:scale-105 hover:text-primary"
+          >
             {item.label}
           </Link>
         ))}
+      </div>
+
+      {/* Action Button */}
+      <div className="flex justify-end items-center">
+        <GetStartedButtonMolecule />
       </div>
     </div>
   );
