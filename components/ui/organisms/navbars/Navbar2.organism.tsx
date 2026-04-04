@@ -34,7 +34,7 @@ const Navbar2Organism = () => {
           <Link
             href={item.href}
             key={index}
-            className="hover:scale-105 hover:text-primary"
+            className="hover:scale-105 transition-transform duration-200 hover:text-primary"
           >
             {item.label}
           </Link>
