@@ -65,7 +65,7 @@ const Hero1Organism = () => {
       <H2 className="my-7 mt-14 flex gap-2">
         Not Sure What To Do ?{" "}
         <strong className="flex">
-          Watch This <ArrowDown className="ml-5 size-9" />
+          Watch This <ArrowDown className="ml-5 size-9 text-bold" />
         </strong>
       </H2>
 
