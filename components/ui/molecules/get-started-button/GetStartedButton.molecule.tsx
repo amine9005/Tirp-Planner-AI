@@ -1,8 +1,28 @@
-import React from "react";
-import { Button } from "@/components/ui/atoms/button/button";
+"use client";
+import { buttonVariants } from "@/components/ui/atoms/button/button";
+import { useUserQuery } from "@/hooks/queries/useUser.hook";
+import Link from "next/link";
 
 const GetStartedButtonMolecule = () => {
-  return <Button width={"md"}>Get Started</Button>;
+  const { data: user } = useUserQuery();
+  console.log("user ", user);
+
+  const link = user ? "create-new-trip" : "/sign-in";
+  const text = user ? "Create New Trip" : "Get Started";
+
+  return (
+    <Link
+      className={buttonVariants({
+        variant: "default",
+        size: "sm",
+        className: "py-4",
+        width: "md",
+      })}
+      href={link}
+    >
+      {text}
+    </Link>
+  );
 };
 
 export default GetStartedButtonMolecule;

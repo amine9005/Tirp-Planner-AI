@@ -958,6 +958,11 @@
     "@standard-schema/spec" "^1.0.0"
     zod "^4.1.12"
 
+"@better-auth/drizzle-adapter@^1.5.6":
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/@better-auth/drizzle-adapter/-/drizzle-adapter-1.5.6.tgz#f18c0b8cdcce0119e7e073bb2cf4d7687fe5fda4"
+  integrity sha512-VfFFmaoFw3ug12SiSuIwzrMoHyIVmkMGWm9gZ4sXdYYVX4HboCL4m3fjzOhppcmK5OGatRuU+N1UX6wxCITcXw==
+
 "@better-auth/telemetry@1.4.7":
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/@better-auth/telemetry/-/telemetry-1.4.7.tgz#6b66c345c48d0d0a84ead409f66b110bff6d0146"

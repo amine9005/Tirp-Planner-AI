@@ -24,7 +24,7 @@ const Navbar2Organism = () => {
       {/* Logo */}
 
       <Link href={"/"} className="flex w-fit col-span-1 gap-2 items-center">
-        <Plane className="size-8 text-blue-500/50" />
+        <Plane className="size-8 text-primary" />
         <H2>Trip Planner AI</H2>
       </Link>
 

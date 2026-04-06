@@ -1,9 +1,10 @@
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
 import { Textarea } from "../../atoms/textarea/textarea";
-import { Button } from "../../atoms/button/button";
+import { buttonVariants } from "../../atoms/button/button";
 import { ArrowDown, Globe, Landmark, Plane, Send } from "lucide-react";
 import { HeroVideoDialog } from "../../atoms/hero-video-dialog/hero-video-dialog";
+import Link from "next/link";
 
 const Hero1Organism = () => {
   const suggestions = [
@@ -45,9 +46,12 @@ const Hero1Organism = () => {
           placeholder="Plan a trip form London to Los Angles"
           className="w-full h-28 bg-transparent border-none focus-visible:ring-0 resize-none shadow-none"
         ></Textarea>
-        <Button className="absolute bottom-4 right-4 rounded-lg">
+        <Link
+          className={`absolute bottom-4 right-4 rounded-lg ${buttonVariants({ variant: "default" })}`}
+          href={"/create-new-trip"}
+        >
           <Send className="size-5 " />
-        </Button>
+        </Link>
       </div>
       {/* Suggestions List */}
       <div className="flex gap-4">
