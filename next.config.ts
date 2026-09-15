@@ -3,7 +3,13 @@ import { withNextVideo } from "next-video/process";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [new URL("https://images.unsplash.com/**")],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.unsplash.com",
+        pathname: "**",
+      },
+    ],
   },
 };
 
