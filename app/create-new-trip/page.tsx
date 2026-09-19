@@ -1,13 +1,10 @@
+import ChatBoxAction from "@/components/ui/actions/AI/ChatBox.action";
 import TwoSplitLayout from "@/components/ui/layouts/TwoSplitLayout.layout";
-import ChatBoxOrganism from "@/components/ui/organisms/chatbox/ChatBox.organism";
 import TripPlannerOrganism from "@/components/ui/organisms/tripPlanner/TripPlanner.organism";
 
 const CreateNewTripPage = () => {
   return (
-    <TwoSplitLayout
-      left={<ChatBoxOrganism />}
-      right={<TripPlannerOrganism />}
-    />
+    <TwoSplitLayout left={<ChatBoxAction />} right={<TripPlannerOrganism />} />
   );
 };
 

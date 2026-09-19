@@ -3,15 +3,15 @@ import { Send } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/atoms/button/button.variants";
 import { Textarea } from "@/components/ui/atoms/textarea/textarea";
-import { useAiSendMessage } from "@/hooks/submit/useAiSendMessage.hook";
+import { LoadingStateType, SendMessageType } from "@/types/create-trip.types";
 
-interface Props {
-  href: string;
-}
-
-const SendMessageMolecule = ({ href }: Props) => {
-  const { isLoading, userMessage, onSend, setUserMessage } = useAiSendMessage();
-
+const SendMessageMolecule = ({
+  href,
+  isLoading,
+  userMessage,
+  onSend,
+  setUserMessage,
+}: LoadingStateType & SendMessageType) => {
   return (
     <div className="w-full relative border rounded-2xl shadow ">
       <Textarea
@@ -22,7 +22,7 @@ const SendMessageMolecule = ({ href }: Props) => {
       ></Textarea>
 
       <Link
-        className={`absolute bottom-4 right-4 rounded-lg ${buttonVariants({ variant: isLoading ? "outline" : "default" })}`}
+        className={`absolute bottom-4 right-4 rounded-lg ${buttonVariants({ variant: isLoading || userMessage.length < 3 ? "outline" : "default" })}`}
         href={href}
         onClick={() => onSend({ message: userMessage.trim() })}
       >

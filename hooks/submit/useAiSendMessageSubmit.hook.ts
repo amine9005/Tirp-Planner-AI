@@ -3,7 +3,7 @@ import { useAI_Mutation } from "../mutations/useAI-ModelMutation.hook";
 import { useRef, useState } from "react";
 import { MessageAISchemaType } from "@/validations/AI.zod";
 
-export function useAiSendMessage() {
+export function useAiSendMessageHook() {
   const { mutateAsync: sendMessage } = useAI_Mutation();
   const messages = useAIMessagesStore((state) => state.messages);
   const setMessages = useAIMessagesStore((state) => state.setMessages);
@@ -13,7 +13,7 @@ export function useAiSendMessage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSend = async ({ message }: { message: string }) => {
-    if (isLoading) return;
+    if (isLoading || userMessage.length < 3) return;
 
     setIsLoading(true);
 
@@ -48,5 +48,5 @@ export function useAiSendMessage() {
     setIsLoading(false);
   };
 
-  return { onSend, userMessage, isLoading, setUserMessage };
+  return { onSend, userMessage, isLoading, setUserMessage, messages };
 }

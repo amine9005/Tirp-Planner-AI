@@ -1,38 +1,35 @@
 "use client";
 import SendMessageMolecule from "@/components/ui/molecules/sendMessage/SendMessage.molecule";
-import { useAIMessagesStore } from "@/store/AI/messages.store";
-import { P } from "../../atoms/text/Text";
 
-const ChatBoxOrganism = () => {
-  const { messages } = useAIMessagesStore();
+import {
+  DisplayMessagesType,
+  LoadingStateType,
+  SendMessageType,
+} from "@/types/create-trip.types";
+import DisplayMessagesMolecule from "@/components/ui/molecules/display-messages/DisplayMessages.molecule";
 
+const ChatBoxOrganism = ({
+  isLoading,
+  userMessage,
+  onSend,
+  setUserMessage,
+  messages,
+}: LoadingStateType & DisplayMessagesType & SendMessageType) => {
   return (
-    <div>
+    <div className="flex flex-col h-[85vh] ">
       {/* Display Messages */}
-      <section className="flex-1 overflow-y-auto p-4">
-        {messages.length > 0 ? (
-          messages.map((message, index) =>
-            message.role === "user" ? (
-              <div key={index} className="flex justify-end mt-2">
-                <div className="max-w-lg bg-primary text-white px-4 py-2 rounded-lg">
-                  {message.message}
-                </div>
-              </div>
-            ) : (
-              <div key={index} className="flex justify-start mt-2">
-                <div className="max-w-lg bg-gray-100 text-black px-4 py-2 rounded-lg">
-                  {message.message}
-                </div>
-              </div>
-            ),
-          )
-        ) : (
-          <P size={"lg"}>Let&apos;s get started!, Where do you want to go ?</P>
-        )}
+      <section className="flex-1 overflow-y-auto p-4 ">
+        <DisplayMessagesMolecule isLoading={isLoading} messages={messages} />
       </section>
       {/* User Input */}
       <section>
-        <SendMessageMolecule href={""} />
+        <SendMessageMolecule
+          href={""}
+          isLoading={isLoading}
+          onSend={onSend}
+          setUserMessage={setUserMessage}
+          userMessage={userMessage}
+        />
       </section>
     </div>
   );
