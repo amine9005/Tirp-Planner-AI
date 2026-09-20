@@ -1,10 +1,10 @@
 import { Loader2Icon } from "lucide-react";
-import { P } from "@/components/ui/atoms/text/Text";
 import {
   DisplayMessagesType,
   LoadingStateType,
 } from "@/types/create-trip.types";
-import { H2 } from "@/components/ui/atoms/heading/heading2";
+import UserWelcomeMolecule from "@/components/ui/molecules/trip-planner/UserWelcome.molecule";
+import DisplaySelectUIAction from "../../actions/AI/DisplaySelectUI.action";
 
 const DisplayMessagesMolecule = ({
   messages,
@@ -22,26 +22,15 @@ const DisplayMessagesMolecule = ({
             </div>
           ) : (
             <div key={index} className="flex justify-start mt-2">
-              <div className="max-w-lg bg-gray-100 text-black px-4 py-2 rounded-lg">
+              <div className="max-w-lg bg-gray-300 text-black px-4 py-2 rounded-lg">
                 {message.message}
+                {message.ui && <DisplaySelectUIAction ui={message.ui} />}
               </div>
             </div>
           ),
         )
       ) : (
-        <div className="flex flex-col items-center justify-center">
-          <H2 size={"xl"}>
-            {" "}
-            Start Planing Your
-            <strong className="text-primary"> Trip</strong> Using AI
-          </H2>
-          <P size={"sm"} className="mt-2 text-center" variant={"muted"}>
-            Discover personalized travel itineraries, find the best travel
-            destinations and experiences with AI-assisted travel planner. Plan
-            your trip with ease and comfort, without worrying about the details.
-            Start planning your trip now and enjoy your journey!
-          </P>
-        </div>
+        <UserWelcomeMolecule />
       )}
       {isLoading && (
         <div className="flex justify-start mt-2">

@@ -1,31 +1,14 @@
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
-import { Textarea } from "../../atoms/textarea/textarea";
-import { buttonVariants } from "../../atoms/button/button";
-import { ArrowDown, Globe, Landmark, Plane, Send } from "lucide-react";
-import { HeroVideoDialog } from "../../atoms/hero-video-dialog/hero-video-dialog";
+import { Textarea } from "@/components/ui/atoms/textarea/textarea";
+import { buttonVariants } from "@/components/ui/atoms/button/button";
+import { ArrowDown, Send } from "lucide-react";
+import { HeroVideoDialog } from "@/components/ui/atoms/hero-video-dialog/hero-video-dialog";
 import Link from "next/link";
 
-const Hero1Organism = () => {
-  const suggestions = [
-    {
-      title: "Create A New Trip",
-      icon: <Globe className="size-5 text-blue-500" />,
-    },
-    {
-      title: "Inspire Me Where To Go",
-      icon: <Plane className="size-5 text-green-500" />,
-    },
-    {
-      title: "Discover Hidden Gems",
-      icon: <Landmark className="size-5 text-orange-500" />,
-    },
-    {
-      title: "Adventure Destination",
-      icon: <Send className="size-5 text-yellow-500" />,
-    },
-  ];
+import SuggestionsAction from "@/components/ui/actions/AI/Suggestions.action";
 
+const Hero1Organism = () => {
   return (
     <div className="mt-24 w-full flex flex-col items-center space-y-6 max-w-4xl">
       {/* Content */}
@@ -54,18 +37,7 @@ const Hero1Organism = () => {
         </Link>
       </div>
       {/* Suggestions List */}
-      <div className="flex gap-4">
-        {suggestions.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2 border rounded-full p-2.5 cursor-pointer hover:bg-primary/25 hover:scale-105 transition-transform duration-200"
-          >
-            {item.icon}
-            <P className="text-sm ">{item.title}</P>
-          </div>
-        ))}
-      </div>
-
+      <SuggestionsAction display={"horizontal"} />
       <H2 className="my-7 mt-14 flex gap-2">
         Not Sure What To Do ?{" "}
         <strong className="flex">

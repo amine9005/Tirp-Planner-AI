@@ -8,6 +8,7 @@ const ChatBoxAction = () => {
 
   return (
     <ChatBoxOrganism
+      href={""}
       isLoading={isLoading}
       messages={messages}
       userMessage={userMessage}

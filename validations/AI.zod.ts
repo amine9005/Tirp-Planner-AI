@@ -10,9 +10,16 @@ export const roleValidation = z.enum(["user", "assistant"], {
   message: "Invalid Role",
 });
 
+export const uiStateValidation = z
+  .enum(["budget", "groupSize", "TripDuration", "Final"], {
+    message: "Invalid UI",
+  })
+  .optional();
+
 export const MessageAISchema = z.object({
   role: roleValidation,
   message: messageValidation,
+  ui: uiStateValidation,
 });
 
 export const MessageArraySchema = z.object({

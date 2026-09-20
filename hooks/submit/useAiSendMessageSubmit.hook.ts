@@ -1,19 +1,21 @@
 import { useAIMessagesStore } from "@/store/AI/messages.store";
 import { useAI_Mutation } from "../mutations/useAI-ModelMutation.hook";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { MessageAISchemaType } from "@/validations/AI.zod";
 
 export function useAiSendMessageHook() {
   const { mutateAsync: sendMessage } = useAI_Mutation();
   const messages = useAIMessagesStore((state) => state.messages);
+  const isLoading = useAIMessagesStore((state) => state.isLoading);
+  const userMessage = useAIMessagesStore((state) => state.userMessage);
+  const setUserMessage = useAIMessagesStore((state) => state.setUserMessage);
+  const setIsLoading = useAIMessagesStore((state) => state.setIsLoading);
   const setMessages = useAIMessagesStore((state) => state.setMessages);
 
   const messageArrayRef = useRef<MessageAISchemaType[]>(messages);
-  const [userMessage, setUserMessage] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const onSend = async ({ message }: { message: string }) => {
-    if (isLoading || userMessage.length < 3) return;
+    if (isLoading || message.length < 3) return;
 
     setIsLoading(true);
 
@@ -25,6 +27,7 @@ export function useAiSendMessageHook() {
     try {
       const resp = await sendMessage(messageArrayRef.current);
 
+      console.log("ai row response ", resp);
       const aiMsg = JSON.parse(
         resp.data.message.slice(
           resp.data.message.indexOf("{") - 1,
@@ -35,6 +38,7 @@ export function useAiSendMessageHook() {
       messageArrayRef.current.push({
         role: "assistant",
         message: aiMsg.resp,
+        ui: aiMsg.ui,
       });
     } catch (error) {
       console.log(error);
