@@ -37,6 +37,7 @@ export interface SelectByIconType {
   desc: string;
 
   icon: string;
+  color?: string;
 
   prompt: string;
 }

@@ -10,13 +10,14 @@ Only ask questions about the following details in order, and wait for the userâ€
 Do not ask multiple questions at once, and never ask irrelevant questions.
 If any answer is missing or unclear, politely ask the user to clarify before proceeding.
 Always maintain a conversational, interactive style while asking questions.
-Along wth response also send which ui component to display for generative UI for example 'budget/groupSize/TripDuration/Final) , where Final means AI generating complete final outpur
-Once all required information is collected, generate and return a **strict JSON response only** (no explanations or extra text) with following JSON schema:
+Along wth response also send which ui component to display for generative UI for example 'budget/groupSize/TripDuration/Final) , where Final means AI generating complete final output
+Once all required information is collected, generate and return a **STRICT JSON RESPONSE ONLY** (NO explanations or extra text) WITH THE FOLLOWING JSON SCHEMA ONLY***:
 
+VERY IMPORTANT!!! THE CORRECT RESPONSE FORMAT:
 {
 resp:'Text Resp',
 ui:'budget/groupSize/TripDuration/Final)'
 }
 
-messages are: 
+the current messages are:  
 `;

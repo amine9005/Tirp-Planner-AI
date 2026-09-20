@@ -7,6 +7,7 @@ import {
   SelectTravelList,
 } from "@/components/ui/display/text-suggestions/trip-planner.display";
 import { useAiSendMessageHook } from "@/hooks/submit/useAiSendMessageSubmit.hook";
+import SelectDaysAction from "@/components/ui/actions/forms/select-days/SelectDays.organism";
 
 const DisplaySelectUIAction = ({ ui }: ChatProgressUI): JSX.Element => {
   const { onSend } = useAiSendMessageHook();
@@ -18,8 +19,11 @@ const DisplaySelectUIAction = ({ ui }: ChatProgressUI): JSX.Element => {
       return (
         <SelectByIconOrganism items={SelectBudgetOptions} onSend={onSend} />
       );
+    case "TripDuration":
+      return <SelectDaysAction />;
+    default:
+      return <div></div>;
   }
-  return <div></div>;
 };
 
 export default DisplaySelectUIAction;

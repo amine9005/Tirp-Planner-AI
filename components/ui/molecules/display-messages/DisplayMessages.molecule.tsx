@@ -4,7 +4,7 @@ import {
   LoadingStateType,
 } from "@/types/create-trip.types";
 import UserWelcomeMolecule from "@/components/ui/molecules/trip-planner/UserWelcome.molecule";
-import DisplaySelectUIAction from "../../actions/AI/DisplaySelectUI.action";
+import DisplaySelectUIAction from "@/components/ui/actions/AI/DisplaySelectUI.action";
 
 const DisplayMessagesMolecule = ({
   messages,
@@ -22,7 +22,7 @@ const DisplayMessagesMolecule = ({
             </div>
           ) : (
             <div key={index} className="flex justify-start mt-2">
-              <div className="max-w-lg bg-gray-300 text-black px-4 py-2 rounded-lg">
+              <div className="max-w-lg bg-gray-800 text-white px-4 py-2 rounded-lg">
                 {message.message}
                 {message.ui && <DisplaySelectUIAction ui={message.ui} />}
               </div>
@@ -34,7 +34,7 @@ const DisplayMessagesMolecule = ({
       )}
       {isLoading && (
         <div className="flex justify-start mt-2">
-          <div className="max-w-lg bg-gray-100 text-black px-4 py-2 rounded-lg">
+          <div className="max-w-lg bg-gray-800 text-white px-4 py-2 rounded-lg">
             <Loader2Icon className="animate-spin size-5" />
           </div>
         </div>
