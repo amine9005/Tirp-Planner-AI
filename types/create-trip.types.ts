@@ -31,13 +31,19 @@ export interface ChatProgressUI {
 
 export interface SelectByIconType {
   id: number;
-
   title: string;
-
   desc: string;
-
   icon: string;
   color?: string;
-
   prompt: string;
+}
+
+export interface TripPlanType {
+  destination: string;
+  duration: string;
+  origin: string;
+  budget: string;
+  Travel_interests: string;
+  Special_requirements: string;
+  group_size: string;
 }

@@ -7,15 +7,17 @@ export function useAiSendMessageHook() {
   const { mutateAsync: sendMessage } = useAI_Mutation();
   const messages = useAIMessagesStore((state) => state.messages);
   const isLoading = useAIMessagesStore((state) => state.isLoading);
+  const isFinal = useAIMessagesStore((state) => state.isFinal);
   const userMessage = useAIMessagesStore((state) => state.userMessage);
   const setUserMessage = useAIMessagesStore((state) => state.setUserMessage);
   const setIsLoading = useAIMessagesStore((state) => state.setIsLoading);
+  const setIsFinal = useAIMessagesStore((state) => state.setIsFinal);
   const setMessages = useAIMessagesStore((state) => state.setMessages);
 
   const messageArrayRef = useRef<MessageAISchemaType[]>(messages);
 
   const onSend = async ({ message }: { message: string }) => {
-    if (isLoading || message.length < 3) return;
+    if (isLoading || message.length < 3 || isFinal) return;
 
     setIsLoading(true);
 
@@ -25,7 +27,10 @@ export function useAiSendMessageHook() {
     setUserMessage("");
 
     try {
-      const resp = await sendMessage(messageArrayRef.current);
+      const resp = await sendMessage({
+        messages: messageArrayRef.current,
+        isFinal: false,
+      });
 
       console.log("ai row response ", resp);
       const aiMsg = JSON.parse(
@@ -40,6 +45,17 @@ export function useAiSendMessageHook() {
         message: aiMsg.resp,
         ui: aiMsg.ui,
       });
+
+      setIsFinal(aiMsg.ui === "Final");
+
+      if (isFinal) {
+        const tripItinerary = await sendMessage({
+          messages: messageArrayRef.current,
+          isFinal: isFinal,
+        });
+
+        console.log("tripItinerary: ", tripItinerary);
+      }
     } catch (error) {
       console.log(error);
       messageArrayRef.current.push({

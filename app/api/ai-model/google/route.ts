@@ -1,15 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI, ThinkingLevel } from "@google/genai";
-import { Trip_Planner_AI_Prompt } from "@/helpers/prompts";
+import {
+  Trip_Planner_AI_Prompt,
+  TRIP_PLANNER_FINAL_PROMPT,
+} from "@/helpers/prompts";
 
 const ai = new GoogleGenAI({});
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json();
+    const { messages, isFinal } = await req.json();
 
     // console.log("messages: ", messages);
-    const prompt = Trip_Planner_AI_Prompt + JSON.stringify(messages);
-    // console.log("prompt: ", prompt);
+    const prompt =
+      (isFinal ? Trip_Planner_AI_Prompt : TRIP_PLANNER_FINAL_PROMPT) +
+      JSON.stringify(messages);
+    console.log("prompt: ", prompt);
 
     const response = await ai.models.generateContent({
       model: "gemma-4-26b-a4b-it",
