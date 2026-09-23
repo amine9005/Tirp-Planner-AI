@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     // console.log("messages: ", messages);
     const prompt =
-      (isFinal ? Trip_Planner_AI_Prompt : TRIP_PLANNER_FINAL_PROMPT) +
+      (!isFinal ? Trip_Planner_AI_Prompt : TRIP_PLANNER_FINAL_PROMPT) +
       JSON.stringify(messages);
     console.log("prompt: ", prompt);
 
