@@ -11,9 +11,19 @@ export const roleValidation = z.enum(["user", "assistant"], {
 });
 
 export const uiStateValidation = z
-  .enum(["budget", "groupSize", "TripDuration", "Final"], {
-    message: "Invalid UI",
-  })
+  .enum(
+    [
+      "budget",
+      "groupSize",
+      "TripDuration",
+      "TravelInterest",
+      "SpecialRequirements",
+      "Final",
+    ],
+    {
+      message: "Invalid UI",
+    },
+  )
   .optional();
 
 export const MessageAISchema = z.object({

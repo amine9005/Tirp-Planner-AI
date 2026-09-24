@@ -26,7 +26,13 @@ export interface SuggestionsType {
 }
 
 export interface ChatProgressUI {
-  ui: "budget" | "groupSize" | "TripDuration" | "Final";
+  ui:
+    | "Budget"
+    | "GroupSize"
+    | "TravelInterest"
+    | "SpecialRequirements"
+    | "TripDuration"
+    | "Final";
 }
 
 export interface SelectByIconType {

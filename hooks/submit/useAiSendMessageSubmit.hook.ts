@@ -48,15 +48,6 @@ export function useAiSendMessageHook() {
       });
 
       setIsFinal(aiMsg.ui === "Final");
-
-      if (isFinal) {
-        const tripItinerary = await sendMessage({
-          messages: messageArrayRef.current,
-          isFinal: isFinal,
-        });
-
-        console.log("tripItinerary: ", tripItinerary);
-      }
     } catch (error) {
       console.log(error);
       messageArrayRef.current.push({
@@ -69,5 +60,5 @@ export function useAiSendMessageHook() {
     setIsLoading(false);
   };
 
-  return { onSend, userMessage, isLoading, setUserMessage, messages };
+  return { onSend, userMessage, isLoading, setUserMessage, messages, isFinal };
 }

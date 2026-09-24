@@ -14,9 +14,9 @@ const DisplaySelectUIAction = ({ ui }: ChatProgressUI): JSX.Element => {
   const { onSend } = useAiSendMessageHook();
 
   switch (ui) {
-    case "groupSize":
+    case "GroupSize":
       return <SelectByIconOrganism items={SelectTravelList} onSend={onSend} />;
-    case "budget":
+    case "Budget":
       return (
         <SelectByIconOrganism items={SelectBudgetOptions} onSend={onSend} />
       );
