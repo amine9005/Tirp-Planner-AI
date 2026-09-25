@@ -26,8 +26,11 @@ export function useGenerateTripHook() {
         setLoadingTrip(true);
 
         console.log("tripItinerary: ", tripItinerary);
+
+        return tripItinerary;
       } catch (error) {
         console.log(error);
+        return null;
       }
     }
   };

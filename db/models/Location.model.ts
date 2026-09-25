@@ -5,6 +5,7 @@ const placeSchema: Schema = new mongoose.Schema({
   place_name: { type: String, required: true },
   place_details: { type: String, required: true },
   place_image_url: { type: String, required: true },
+  place_address: { type: String, required: true },
   geo_coordinates: {
     latitude: { type: Number, required: true },
     longitude: { type: Number, required: true },
