@@ -14,7 +14,7 @@ export const useSaveTripPlanMutation = () => {
     special_requirements,
     group_size,
     hotels,
-    activities,
+    itinerary,
   }: TripPlan) => {
     const response = await axiosInstance.post("api/trip-planner/save", {
       destination,
@@ -25,7 +25,7 @@ export const useSaveTripPlanMutation = () => {
       special_requirements,
       group_size,
       hotels,
-      activities,
+      itinerary,
     });
 
     return response;

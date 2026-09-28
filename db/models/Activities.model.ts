@@ -1,11 +1,14 @@
 import mongoose, { HydratedDocument, InferSchemaType, Schema } from "mongoose";
-import PlaceModel from "./Location.model";
 
 // Define the schema for Place based on the provided structure
 const activitiesSchema: Schema = new mongoose.Schema({
-  location_details: {
-    type: mongoose.Schema.ObjectId,
-    ref: PlaceModel.modelName,
+  place_name: { type: String, required: true },
+  place_details: { type: String, required: true },
+  place_image_url: { type: String, required: true },
+  place_address: { type: String, required: true },
+  geo_coordinates: {
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
   },
   ticket_pricing: { type: String, required: true },
   time_travel_each_location: { type: String, required: true },

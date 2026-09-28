@@ -1,4 +1,6 @@
-import HotelModel, { Hotel, HotelDocument } from "@/db/models/Hotel.model";
+import ActivitiesModel, { Activities } from "@/db/models/Activities.model";
+import HotelModel, { Hotel } from "@/db/models/Hotel.model";
+import ItineraryModel, { Itinerary } from "@/db/models/Itinerary.model";
 import TripPlanModel from "@/db/models/TripPlan.model";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -13,8 +15,15 @@ export async function POST(req: NextRequest) {
       special_requirements,
       group_size,
       hotels,
-      activities,
+      itinerary,
     } = await req.json();
+
+    // const hotelsDoc = await saveArrayToMongoDB({
+    //   collection: hotels,
+    //   db_name: "hotel",
+    //   mongoDbModel: HotelModel,
+    // });
+    // console.log("Hotels ", hotels);
 
     console.log("Hotels ", hotels);
     const hotelsDoc = await Promise.all(
@@ -24,53 +33,62 @@ export async function POST(req: NextRequest) {
         });
         return hotel._id;
       }),
-    ).catch((e) => {
-      console.log(e);
-      return NextResponse.json(
-        { message: "Failed to create hotel in DB", error: e },
-        { status: 500 },
-      );
+    );
+
+    const itinerariesDoc = await Promise.all(
+      itinerary.map(async (item: Itinerary) => {
+        const activitiesArray = item.activities as Array<Activities>;
+
+        const activitiesDoc = await Promise.all(
+          activitiesArray.map(async (act: Activities) => {
+            const actResp = await ActivitiesModel.create({
+              ...act,
+            });
+            return actResp._id;
+          }),
+        ).catch((e) => {
+          console.log(e);
+          return NextResponse.json(
+            { message: "Failed to create activity in DB", error: e },
+            { status: 500 },
+          );
+        });
+
+        console.log("activities doc ", activitiesDoc);
+
+        const model = await ItineraryModel.create({
+          ...item,
+          activities: activitiesDoc,
+        });
+        return model._id;
+      }),
+    );
+
+    const tripPlan = await TripPlanModel.create({
+      destination,
+      duration,
+      origin,
+      budget,
+      travel_interests,
+      special_requirements,
+      group_size,
+      hotels: hotelsDoc,
+      itinerary: itinerariesDoc,
     });
 
-    if (!hotelsDoc) {
-      return NextResponse.json(
-        { message: "Failed to create hotels in DB" },
-        { status: 500 },
-      );
-    }
-
-    // const hotelsRefs = [];
-    // await hotels.map(async (hotel: Hotel) =>
-    //   hotelsRefs.push(
-    //     await HotelModel.create({
-    //       hotel_name: hotel.hotel_name,
-    //       hotel_address: hotel.hotel_address,
-    //       price_per_night: hotel.price_per_night,
-    //       hotel_image_url: hotel.hotel_image_url,
-    //       geo_coordinates: hotel.geo_coordinates,
-    //       rating: hotel.rating,
-    //       description: hotel.description,
-    //     }),
-    //   ),
-    // );
-
-    // await TripPlanModel.create({
-    //   destination,
-    //   duration,
-    //   origin,
-    //   budget,
-    //   travel_interests,
-    //   special_requirements,
-    //   group_size,
-    //   hotels,
-    //   activities,
-    // });
-
     return NextResponse.json(
-      { message: "Trip Plan Created Successfully ", hotelsDoc },
+      {
+        message: "Trip Plan Created Successfully ",
+        hotelsDoc,
+        itinerariesDoc,
+        tripPlan,
+      },
       { status: 201 },
     );
   } catch (e) {
-    return NextResponse.json({ error: e }, { status: 500 });
+    return NextResponse.json(
+      { message: "Failed to  create trip plan ", e },
+      { status: 500 },
+    );
   }
 }

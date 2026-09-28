@@ -1,6 +1,6 @@
 import mongoose, { HydratedDocument, InferSchemaType } from "mongoose";
 import HotelModel from "./Hotel.model";
-import ActivitiesModel from "./Activities.model";
+import ItineraryModel from "./Itinerary.model";
 const tripPlanSchema = new mongoose.Schema(
   {
     destination: { type: String, required: true },
@@ -11,8 +11,8 @@ const tripPlanSchema = new mongoose.Schema(
     special_requirements: { type: String, required: true },
     group_size: { type: String, required: true },
     hotels: [{ type: mongoose.Schema.ObjectId, ref: HotelModel.modelName }],
-    activities: [
-      { type: mongoose.Schema.ObjectId, ref: ActivitiesModel.modelName },
+    itinerary: [
+      { type: mongoose.Schema.ObjectId, ref: ItineraryModel.modelName },
     ],
   },
   { timestamps: true },
