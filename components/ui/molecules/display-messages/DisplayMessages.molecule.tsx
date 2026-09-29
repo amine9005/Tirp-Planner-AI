@@ -9,6 +9,7 @@ import DisplaySelectUIAction from "@/components/ui/actions/AI/DisplaySelectUI.ac
 const DisplayMessagesMolecule = ({
   messages,
   isLoading,
+  isFinal,
 }: LoadingStateType & DisplayMessagesType) => {
   return (
     <>
@@ -32,7 +33,7 @@ const DisplayMessagesMolecule = ({
       ) : (
         <UserWelcomeMolecule />
       )}
-      {isLoading && (
+      {isLoading && !isFinal && (
         <div className="flex justify-start mt-2">
           <div className="max-w-lg bg-gray-800 text-white px-4 py-2 rounded-lg">
             <Loader2Icon className="animate-spin size-5" />

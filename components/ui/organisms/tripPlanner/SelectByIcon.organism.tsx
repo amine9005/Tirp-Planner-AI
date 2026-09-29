@@ -1,7 +1,7 @@
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { SelectByIconType } from "@/types/create-trip.types";
 import Link from "next/link";
-import { P } from "../../atoms/text/Text";
+import { P } from "@/components/ui/atoms/text/Text";
 
 const SelectByIconOrganism = ({
   items,
@@ -11,7 +11,7 @@ const SelectByIconOrganism = ({
   onSend: ({ message }: { message: string }) => void;
 }) => {
   return (
-    <div className="flex justify-center items-center mt-4 gap-2 md:w-fit w-full">
+    <div className="flex justify-center items-center mt-4 gap-2">
       {items.map((Item, index) => (
         <Link
           key={index}

@@ -17,7 +17,7 @@ export function useAiSendMessageHook() {
   const messageArrayRef = useRef<MessageAISchemaType[]>(messages);
 
   const onSend = async ({ message }: { message: string }) => {
-    console.log("isFinal ", isFinal);
+    // console.log("isFinal ", isFinal);
     if (isLoading || message.length < 2 || isFinal) return;
 
     setIsLoading(true);
@@ -33,11 +33,11 @@ export function useAiSendMessageHook() {
         isFinal: false,
       });
 
-      console.log("ai row response ", resp);
+      // console.log("ai row response ", resp);
       const aiMsg = JSON.parse(
         resp.data.message.slice(
           resp.data.message.indexOf("{"),
-          resp.data.message.indexOf("}") + 1,
+          resp.data.message.lastIndexOf("}") + 1,
         ),
       );
 

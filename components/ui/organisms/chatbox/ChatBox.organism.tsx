@@ -10,6 +10,8 @@ import DisplayMessagesMolecule from "@/components/ui/molecules/display-messages/
 
 const ChatBoxOrganism = ({
   isLoading,
+  isFinal,
+  success,
   userMessage,
   onSend,
   setUserMessage,
@@ -19,13 +21,20 @@ const ChatBoxOrganism = ({
     <div className="flex flex-col h-[85vh] ">
       {/* Display Messages */}
       <section className="flex-1 overflow-y-auto p-4 ">
-        <DisplayMessagesMolecule isLoading={isLoading} messages={messages} />
+        <DisplayMessagesMolecule
+          isFinal={isFinal}
+          isLoading={isLoading}
+          success={success}
+          messages={messages}
+        />
       </section>
       {/* User Input */}
       <section>
         <SendMessageMolecule
           href={""}
           isLoading={isLoading}
+          success={success}
+          isFinal={isFinal}
           onSend={onSend}
           setUserMessage={setUserMessage}
           userMessage={userMessage}

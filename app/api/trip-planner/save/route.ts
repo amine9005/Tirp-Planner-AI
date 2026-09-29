@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     // });
     // console.log("Hotels ", hotels);
 
-    console.log("Hotels ", hotels);
+    // console.log("Hotels ", hotels);
     const hotelsDoc = await Promise.all(
       hotels.map(async (item: Hotel) => {
         const hotel = await HotelModel.create({
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
           );
         });
 
-        console.log("activities doc ", activitiesDoc);
+        // console.log("activities doc ", activitiesDoc);
 
         const model = await ItineraryModel.create({
           ...item,
@@ -79,9 +79,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         message: "Trip Plan Created Successfully ",
-        hotelsDoc,
-        itinerariesDoc,
-        tripPlan,
+        data: tripPlan,
       },
       { status: 201 },
     );

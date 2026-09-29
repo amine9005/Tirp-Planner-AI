@@ -3,6 +3,8 @@ import { Suggestions } from "./general.types";
 
 export interface LoadingStateType {
   isLoading: boolean;
+  isFinal?: boolean;
+  success?: boolean;
 }
 
 export interface DisplayMessagesType {

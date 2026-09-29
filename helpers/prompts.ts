@@ -32,6 +32,10 @@ Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and
 
     "origin": "string",
 
+    "travel_interests": "string",
+
+    "special_requirements": "string",
+
     "budget": "string",
 
     "group_size": "string",

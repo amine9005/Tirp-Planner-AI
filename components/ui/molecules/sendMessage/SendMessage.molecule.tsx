@@ -11,6 +11,7 @@ const SendMessageMolecule = ({
   userMessage,
   onSend,
   setUserMessage,
+  isFinal,
 }: LoadingStateType & SendMessageType) => {
   return (
     <div className="w-full relative border rounded-2xl shadow ">
@@ -22,7 +23,7 @@ const SendMessageMolecule = ({
       ></Textarea>
 
       <Link
-        className={`absolute bottom-4 right-4 rounded-lg ${buttonVariants({ variant: isLoading || userMessage.length < 3 ? "outline" : "default" })}`}
+        className={`absolute bottom-4 right-4 rounded-lg ${buttonVariants({ variant: isLoading || isFinal || userMessage.length < 2 ? "outline" : "default" })}`}
         href={href}
         onClick={() => onSend({ message: userMessage.trim() })}
       >

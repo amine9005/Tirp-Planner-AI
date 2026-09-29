@@ -13,8 +13,8 @@ export const roleValidation = z.enum(["user", "assistant"], {
 export const uiStateValidation = z
   .enum(
     [
-      "budget",
-      "groupSize",
+      "Budget",
+      "GroupSize",
       "TripDuration",
       "TravelInterest",
       "SpecialRequirements",
