@@ -11,11 +11,11 @@ const SelectByIconOrganism = ({
   onSend: ({ message }: { message: string }) => void;
 }) => {
   return (
-    <div className="flex justify-center items-center mt-4 gap-2">
+    <div className="flex justify-center items-center mt-4 gap-2 ">
       {items.map((Item, index) => (
         <Link
           key={index}
-          className="flex w-20 md:w-40 flex-col bg-secondary p-3 border-2 hover:scale-90 transition-all duration-300 rounded-2xl hover:border-primary cursor-pointer gap-2 justify-center items-center"
+          className="flex h-45 flex-col bg-secondary p-3 border-2 hover:scale-90 transition-all duration-300 rounded-2xl hover:border-primary cursor-pointer gap-2 justify-center items-center"
           href={"/create-new-trip"}
           onClick={() => onSend({ message: Item.prompt })}
         >

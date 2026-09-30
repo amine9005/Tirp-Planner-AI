@@ -1,15 +1,16 @@
+import { TripPlanType } from "@/types/create-trip.types";
 import { MessageAISchemaType } from "@/validations/AI.zod";
 import { create } from "zustand";
 
 type MessagesState = {
   messages: MessageAISchemaType[];
-  tripPlanString: string;
+  tripPlan: TripPlanType | null;
   isLoading: boolean;
   isFinal: boolean;
   success: boolean;
   userMessage: string;
   setIsLoading: (value: boolean) => void;
-  setTripPlanString: (value: string) => void;
+  setTripPlan: (value: TripPlanType) => void;
   setSuccess: (value: boolean) => void;
   setIsFinal: (value: boolean) => void;
   setMessages: (value: MessageAISchemaType[]) => void;
@@ -19,11 +20,11 @@ type MessagesState = {
 export const useAIMessagesStore = create<MessagesState>((set) => ({
   messages: [],
   isLoading: false,
-  tripPlanString: "",
+  tripPlan: null,
   isFinal: false,
   success: false,
   userMessage: "",
-  setTripPlanString: (value) => set({ tripPlanString: value }),
+  setTripPlan: (value) => set({ tripPlan: value }),
   setSuccess: (value) => set({ success: value }),
   setUserMessage: (value) => set({ userMessage: value }),
   setIsLoading: (value) => set({ isLoading: value }),

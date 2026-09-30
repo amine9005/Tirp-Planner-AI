@@ -1,7 +1,7 @@
-import mongoose, { HydratedDocument, InferSchemaType, Schema } from "mongoose";
+import mongoose, { HydratedDocument, InferSchemaType } from "mongoose";
 
 // Define the schema for Hotel based on the provided structure
-const hotelSchema: Schema = new mongoose.Schema({
+const hotelSchema = new mongoose.Schema({
   hotel_name: { type: String, required: true },
   hotel_address: { type: String, required: true },
   price_per_night: { type: String, required: true },

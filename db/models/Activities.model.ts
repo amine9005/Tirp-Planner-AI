@@ -1,7 +1,7 @@
-import mongoose, { HydratedDocument, InferSchemaType, Schema } from "mongoose";
+import mongoose, { HydratedDocument, InferSchemaType } from "mongoose";
 
 // Define the schema for Place based on the provided structure
-const activitiesSchema: Schema = new mongoose.Schema({
+const activitiesSchema = new mongoose.Schema({
   place_name: { type: String, required: true },
   place_details: { type: String, required: true },
   place_image_url: { type: String, required: true },

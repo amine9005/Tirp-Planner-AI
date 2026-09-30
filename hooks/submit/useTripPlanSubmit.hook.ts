@@ -16,19 +16,16 @@ export function useTripPlanHook() {
 
   const { messages, isFinal } = useAiSendMessageHook();
 
-  const setTripPlanString = useAIMessagesStore(
-    (state) => state.setTripPlanString,
-  );
-  const tripPlanString = useAIMessagesStore((state) => state.tripPlanString);
+  const setTripPlan = useAIMessagesStore((state) => state.setTripPlan);
+  const tripPlan = useAIMessagesStore((state) => state.tripPlan);
 
   const saveTripPlan = async (tripPlan: TripPlan) => {
     try {
       const resp = await saveTripPlaMt(tripPlan);
-      setSuccess(true);
+
       // console.log("save trip ", resp);
       return resp;
     } catch (e) {
-      setSuccess(false);
       console.log("error saving trip ", e);
       return null;
     }
@@ -68,19 +65,14 @@ export function useTripPlanHook() {
   const generateTripAndSaveTrip = async () => {
     // console.log("finalizing");
 
-    const trip_string = tripPlanString
-      ? tripPlanString
-      : await generateTrip({ messages, isFinal });
+    const trip_string = await generateTrip({ messages, isFinal });
     // console.log("trip string: ", trip_string);
 
     if (trip_string) {
       try {
-        const result =
-          typeof trip_string === "string"
-            ? trip_string
-            : aiResponseToJSON(trip_string);
+        const result = aiResponseToJSON(trip_string);
         // console.log("result json ", result);
-        setTripPlanString(result);
+        setTripPlan(result.trip_plan);
         // console.log("trip plan result ", result.trip_plan);
         saveTripPlan(result.trip_plan);
         setSuccess(true);
@@ -92,5 +84,11 @@ export function useTripPlanHook() {
     }
   };
 
-  return { saveTripPlan, generateTripAndSaveTrip, success, isLoading };
+  return {
+    saveTripPlan,
+    generateTripAndSaveTrip,
+    success,
+    isLoading,
+    tripPlan,
+  };
 }

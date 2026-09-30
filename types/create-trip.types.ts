@@ -1,5 +1,7 @@
 import { MessageAISchemaType } from "@/validations/AI.zod";
 import { Suggestions } from "./general.types";
+import { Hotel } from "@/db/models/Hotel.model";
+import { Itinerary } from "@/db/models/Itinerary.model";
 
 export interface LoadingStateType {
   isLoading: boolean;
@@ -54,4 +56,6 @@ export interface TripPlanType {
   Travel_interests: string;
   Special_requirements: string;
   group_size: string;
+  hotels: Hotel[];
+  itinerary: Itinerary[];
 }
