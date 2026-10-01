@@ -1,62 +1,54 @@
 "use client";
-import { Calendar, Star, Users, Wallet } from "lucide-react";
-import { Timeline } from "../timeline/Timeline.organism";
+import {
+  Calendar,
+  ExternalLink,
+  TicketCheckIcon,
+  Timer,
+  Users,
+  Wallet,
+} from "lucide-react";
+import { Timeline } from "@/components/ui/organisms/timeline/Timeline.organism";
 import { useAIMessagesStore } from "@/store/AI/messages.store";
 import Image from "next/image";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { TRIP_DATA } from "@/helpers/DummyData.helper";
-import { P } from "../../atoms/text/Text";
+import { P } from "@/components/ui/atoms/text/Text";
+import { buttonVariants } from "@/components/ui/atoms/button/button";
+import Link from "next/link";
+import { BlurFade } from "../../Effects/blur-fade";
+import HotelCard from "../cards/trip-planner/Hotel.card";
+import ItineraryCard from "../cards/trip-planner/Itinerary.card";
 
 const TripPlannerOrganism = () => {
   const tripPlan = TRIP_DATA;
   // useAIMessagesStore((state) => state.tripPlan);
   const data = [
     {
-      title: "Recommended Hotels",
+      title: "Hotels",
       content: (
-        <div className="flex flex-col gap-8">
-          {tripPlan?.hotels.map((hotel, index) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+          {tripPlan?.hotels.map((hotel, idx) => {
             return (
-              <div key={index} className="flex flex-col gap-1">
-                <img
-                  src={
-                    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2600&auto=format&fit=crop"
-                  }
-                  alt={hotel.hotel_image_url}
-                  className="rounded-xl object-cover shadow pb-2"
-                />
-                <H2 className="font-semibold" size={"lg"}>
-                  {hotel.hotel_name}
-                </H2>
-                <P
-                  className="font-semibold "
-                  size={"default"}
-                  variant={"muted"}
-                >
-                  {hotel.hotel_address}
-                </P>
-                <div className="flex justify-between w-full gap-4">
-                  <P className="flex flex-row gap-4" variant={"success"}>
-                    {" "}
-                    <Wallet className="size-6 " /> {hotel.price_per_night}
-                  </P>
-                  <P className="flex gap-2" variant={"warning"}>
-                    {" "}
-                    <Star className="fill-amber-400" /> {hotel.rating}{" "}
-                  </P>
-                </div>
-                <P className="line-clamp-2" variant={"default"}>
-                  {hotel.description}
-                </P>
-              </div>
+              <BlurFade
+                onlyOnce={false}
+                key={idx}
+                delay={0.3 + idx * 0.1}
+                inView
+              >
+                <HotelCard hotel={hotel} idx={idx} />
+              </BlurFade>
             );
           })}
         </div>
       ),
     },
+    ...TRIP_DATA.itinerary.map((dayData) => ({
+      title: `Day ${dayData.day}`,
+      content: <ItineraryCard dayData={dayData} />,
+    })),
   ];
   return (
-    <div className="relative h-[85vh] overflow-y-auto w-full col-span-2 gap-">
+    <div className="relative h-[85vh] overflow-y-auto w-full col-span-2 gap-2">
       <Timeline
         data={data}
         mainTitle={

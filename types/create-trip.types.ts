@@ -53,9 +53,41 @@ export interface TripPlanType {
   duration: string;
   origin: string;
   budget: string;
-  Travel_interests: string;
-  Special_requirements: string;
+  travel_interests: string;
+  special_requirements: string;
   group_size: string;
-  hotels: Hotel[];
-  itinerary: Itinerary[];
+  hotels: HotelType[];
+  itinerary: ItineraryType[];
+}
+
+export interface HotelType {
+  hotel_name: string;
+  hotel_address: string;
+  price_per_night: string;
+  hotel_image_url: string;
+  geo_coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  rating: number;
+  description: string;
+}
+
+export interface ItineraryType {
+  day: number;
+  day_plan: string;
+  best_time_to_visit_day: string;
+  activities: {
+    place_name: string;
+    place_details: string;
+    place_image_url: string;
+    geo_coordinates: {
+      latitude: number;
+      longitude: number;
+    };
+    place_address: string;
+    ticket_pricing: string;
+    time_travel_each_location: string;
+    best_time_to_visit: string;
+  }[];
 }
