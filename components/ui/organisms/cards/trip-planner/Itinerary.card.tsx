@@ -3,8 +3,9 @@ import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
 import { ItineraryType } from "@/types/create-trip.types";
-import { ExternalLink, Link, TicketCheckIcon, Timer } from "lucide-react";
+import { ExternalLink, TicketCheckIcon, Timer } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const ItineraryCard = ({ dayData }: { dayData: ItineraryType }) => {
   return (

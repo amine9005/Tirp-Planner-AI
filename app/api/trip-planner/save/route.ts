@@ -1,7 +1,8 @@
 import ActivitiesModel, { Activities } from "@/db/models/Activities.model";
 import HotelModel, { Hotel } from "@/db/models/Hotel.model";
-import ItineraryModel, { Itinerary } from "@/db/models/Itinerary.model";
+import ItineraryModel from "@/db/models/Itinerary.model";
 import TripPlanModel from "@/db/models/TripPlan.model";
+import { ItineraryType } from "@/types/create-trip.types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -36,8 +37,8 @@ export async function POST(req: NextRequest) {
     );
 
     const itinerariesDoc = await Promise.all(
-      itinerary.map(async (item: Itinerary) => {
-        const activitiesArray = item.activities as Array<Activities>;
+      itinerary.map(async (item: ItineraryType) => {
+        const activitiesArray = item.activities;
 
         const activitiesDoc = await Promise.all(
           activitiesArray.map(async (act: Activities) => {

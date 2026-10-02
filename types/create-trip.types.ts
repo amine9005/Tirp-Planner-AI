@@ -1,7 +1,5 @@
 import { MessageAISchemaType } from "@/validations/AI.zod";
 import { Suggestions } from "./general.types";
-import { Hotel } from "@/db/models/Hotel.model";
-import { Itinerary } from "@/db/models/Itinerary.model";
 
 export interface LoadingStateType {
   isLoading: boolean;
@@ -77,17 +75,19 @@ export interface ItineraryType {
   day: number;
   day_plan: string;
   best_time_to_visit_day: string;
-  activities: {
-    place_name: string;
-    place_details: string;
-    place_image_url: string;
-    geo_coordinates: {
-      latitude: number;
-      longitude: number;
-    };
-    place_address: string;
-    ticket_pricing: string;
-    time_travel_each_location: string;
-    best_time_to_visit: string;
-  }[];
+  activities: ActivityType[];
+}
+
+export interface ActivityType {
+  place_name: string;
+  place_details: string;
+  place_image_url: string;
+  geo_coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+  place_address: string;
+  ticket_pricing: string;
+  time_travel_each_location: string;
+  best_time_to_visit: string;
 }

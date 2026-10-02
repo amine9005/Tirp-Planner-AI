@@ -1,23 +1,13 @@
 "use client";
-import {
-  Calendar,
-  ExternalLink,
-  TicketCheckIcon,
-  Timer,
-  Users,
-  Wallet,
-} from "lucide-react";
+import { Calendar, Users, Wallet } from "lucide-react";
 import { Timeline } from "@/components/ui/organisms/timeline/Timeline.organism";
-import { useAIMessagesStore } from "@/store/AI/messages.store";
-import Image from "next/image";
+
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { TRIP_DATA } from "@/helpers/DummyData.helper";
-import { P } from "@/components/ui/atoms/text/Text";
-import { buttonVariants } from "@/components/ui/atoms/button/button";
-import Link from "next/link";
-import { BlurFade } from "../../Effects/blur-fade";
-import HotelCard from "../cards/trip-planner/Hotel.card";
-import ItineraryCard from "../cards/trip-planner/Itinerary.card";
+import { BlurFade } from "@/components/ui/Effects/blur-fade";
+import HotelCard from "@/components/ui/organisms/cards/trip-planner/Hotel.card";
+import ItineraryCard from "@/components/ui/organisms/cards/trip-planner/Itinerary.card";
+import HotelCardAction from "../../actions/AI/HotelCard.action";
 
 const TripPlannerOrganism = () => {
   const tripPlan = TRIP_DATA;
@@ -26,7 +16,7 @@ const TripPlannerOrganism = () => {
     {
       title: "Hotels",
       content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
           {tripPlan?.hotels.map((hotel, idx) => {
             return (
               <BlurFade
@@ -35,7 +25,7 @@ const TripPlannerOrganism = () => {
                 delay={0.3 + idx * 0.1}
                 inView
               >
-                <HotelCard hotel={hotel} idx={idx} />
+                <HotelCardAction hotel={hotel} idx={idx} />
               </BlurFade>
             );
           })}
