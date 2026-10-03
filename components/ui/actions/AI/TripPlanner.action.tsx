@@ -3,15 +3,19 @@ import { Calendar, Users, Wallet } from "lucide-react";
 import { Timeline } from "@/components/ui/organisms/timeline/Timeline.organism";
 
 import { H2 } from "@/components/ui/atoms/heading/heading2";
-import { TRIP_DATA } from "@/helpers/DummyData.helper";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
-import HotelCard from "@/components/ui/organisms/cards/trip-planner/Hotel.card";
 import ItineraryCard from "@/components/ui/organisms/cards/trip-planner/Itinerary.card";
-import HotelCardAction from "../../actions/AI/HotelCard.action";
+import HotelCardAction from "./HotelCard.action";
+import { useAIMessagesStore } from "@/store/AI/messages.store";
+import TripPlaceHolderImageAction from "./TripPlaceHolderImage.action";
 
-const TripPlannerOrganism = () => {
-  const tripPlan = TRIP_DATA;
-  // useAIMessagesStore((state) => state.tripPlan);
+const TripPlannerAction = () => {
+  const tripPlan = useAIMessagesStore((state) => state.tripPlan);
+
+  if (!tripPlan) {
+    return <TripPlaceHolderImageAction />;
+  }
+
   const data = [
     {
       title: "Hotels",
@@ -32,7 +36,7 @@ const TripPlannerOrganism = () => {
         </div>
       ),
     },
-    ...TRIP_DATA.itinerary.map((dayData) => ({
+    ...tripPlan?.itinerary.map((dayData) => ({
       title: `Day ${dayData.day}`,
       content: <ItineraryCard dayData={dayData} />,
     })),
@@ -70,4 +74,4 @@ const TripPlannerOrganism = () => {
   );
 };
 
-export default TripPlannerOrganism;
+export default TripPlannerAction;

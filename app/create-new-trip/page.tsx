@@ -1,10 +1,10 @@
 import ChatBoxAction from "@/components/ui/actions/AI/ChatBox.action";
 import OneTwoLayout from "@/components/ui/layouts/OneTwo.layout";
-import TripPlannerOrganism from "@/components/ui/organisms/tripPlanner/TripPlanner.organism";
+import TripPlannerAction from "@/components/ui/actions/AI/TripPlanner.action";
 
 const CreateNewTripPage = () => {
   return (
-    <OneTwoLayout left={<ChatBoxAction />} right={<TripPlannerOrganism />} />
+    <OneTwoLayout left={<ChatBoxAction />} right={<TripPlannerAction />} />
   );
 };
 

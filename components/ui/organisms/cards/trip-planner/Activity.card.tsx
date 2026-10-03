@@ -16,10 +16,10 @@ const ActivityCard = ({
   return (
     <div className={"flex flex-col justify-between gap-2 h-120"}>
       <Image
-        src={place_image ? place_image : "file.svg"}
+        src={place_image ? place_image : "travel-placeholder.jpg"}
         width={400}
         height={200}
-        alt={place_image}
+        alt={"travel-placeholder.jpg"}
         className="object-cover rounded-xl w-full h-50 mb-2"
       />
       <H2 size={"lg"}>{activity.place_name}</H2>
@@ -29,13 +29,6 @@ const ActivityCard = ({
       <P className="flex justify-between items-center" variant={"info"}>
         <TicketCheckIcon /> {activity.ticket_pricing}
       </P>
-      {/* <P
-                  variant={"warning"}
-                  className="flex justify-between items-center"
-                >
-                  <Clock className="size-5" />
-                  {activity.time_travel_each_location}
-                </P> */}
       <P variant={"warning"} className="flex justify-between items-center">
         <Timer className="size-5" />
         {activity.best_time_to_visit}

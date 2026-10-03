@@ -18,10 +18,10 @@ const HotelCard = ({
   return (
     <div key={idx} className="flex flex-col gap-1">
       <Image
-        src={imageSrc ? imageSrc : "file.svg"}
+        src={imageSrc ? imageSrc : "/hotel-building-concept.jpg"}
         width={400}
         height={200}
-        alt={hotel.hotel_image_url}
+        alt={"/hotel-building-concept.jpg"}
         className="rounded-xl object-cover w-full h-50 shadow pb-2"
       />
       <H2 className="font-semibold" size={"lg"}>

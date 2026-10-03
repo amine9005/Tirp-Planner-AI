@@ -73,7 +73,7 @@ export function useTripPlanHook() {
         const result = aiResponseToJSON(trip_string);
         // console.log("result json ", result);
         setTripPlan(result.trip_plan);
-        // console.log("trip plan result ", result.trip_plan);
+        console.log("trip plan result ", result.trip_plan);
         saveTripPlan(result.trip_plan);
         setSuccess(true);
       } catch (e) {
