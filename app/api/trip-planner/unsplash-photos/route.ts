@@ -3,18 +3,18 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { placeName } = await req.json();
+    const { placeName, per_page, page_number, w, h } = await req.json();
 
     const BASE_URL = "https://api.unsplash.com/search/photos";
 
     const result = await axios.get(BASE_URL, {
       params: {
-        page: 1,
-        per_page: 10,
+        page: page_number,
+        per_page: per_page,
         query: placeName,
         client_id: process.env.UNSPLASH_CLIENT_ID,
-        w: 500,
-        h: 500,
+        w: w,
+        h: h,
       },
     });
 

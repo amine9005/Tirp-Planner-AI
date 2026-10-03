@@ -6,13 +6,19 @@ import { ExternalLink, Star, Wallet } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-const HotelCard = ({ hotel, idx }: { hotel: Hotel; idx: number }) => {
+const HotelCard = ({
+  hotel,
+  idx,
+  imageSrc,
+}: {
+  hotel: Hotel;
+  idx: number;
+  imageSrc?: string;
+}) => {
   return (
     <div key={idx} className="flex flex-col gap-1">
       <Image
-        src={
-          "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2600&auto=format&fit=crop"
-        }
+        src={imageSrc ? imageSrc : "file.svg"}
         width={400}
         height={200}
         alt={hotel.hotel_image_url}
