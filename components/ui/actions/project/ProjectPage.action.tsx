@@ -11,8 +11,10 @@ import ProjectVideoMolecule from "@/components/ui/molecules/project-video/Projec
 import Project3DModelMolecule from "@/components/ui/molecules/project-3d-model/Project3DModel.molecule";
 
 const ProjectPageAction = () => {
-  const { id } = useParams();
-  const { data, isLoading, error } = useGetProjectByIdQuery(id as string);
+  const params = useParams();
+  const { data, isLoading, error } = useGetProjectByIdQuery(
+    params?.id as string,
+  );
 
   if (isLoading) {
     return (

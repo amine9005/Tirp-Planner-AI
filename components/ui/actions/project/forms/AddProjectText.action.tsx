@@ -9,10 +9,10 @@ interface Props {
 }
 
 const AddProjectTextAction = ({ nextStep }: Props) => {
-  const { id } = useParams();
+  const params = useParams();
 
   const card = {
-    title: id ? "Edit Project Details" : "Add Project Details",
+    title: params?.id ? "Edit Project Details" : "Add Project Details",
     description: "",
   };
 

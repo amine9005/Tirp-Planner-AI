@@ -8,10 +8,10 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 const ViewProjectRequestAction = () => {
-  const { id } = useParams();
+  const params = useParams();
 
   const { data, isLoading, error } = useGetProjectRequestByIdQuery(
-    id as string,
+    params?.id as string,
   );
 
   if (isLoading) {

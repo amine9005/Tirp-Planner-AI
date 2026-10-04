@@ -1,5 +1,5 @@
 // import LoadingSubmitButtonMolecule from "@/components/ui/molecules/loading-submit-button/loadingSubmitButton.molecule";
-// import { useGoogleSignInHook } from "@/hooks/useAuthSubmit.hook";
+// import { useGoogleSignInHook } from "@/hooks/submit/useAuthSubmit.hook";
 // import { memo } from "react";
 
 // const GoogleSignInButton = () => {

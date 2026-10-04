@@ -23,9 +23,11 @@ import { Loader2Icon } from "lucide-react";
 import { P } from "@/components/ui/atoms/text/Text";
 
 const EditProjectSteps = () => {
-  const { id } = useParams();
+  const params = useParams();
 
-  const { data, isLoading, error } = useGetProjectByIdQuery(id as string);
+  const { data, isLoading, error } = useGetProjectByIdQuery(
+    params?.id as string,
+  );
   const { setProjectDataInStore } = useSetProjectDataInStore();
 
   console.log("edit project data ", data);
@@ -187,7 +189,7 @@ const EditProjectSteps = () => {
           >
             <AddProjectSettingsAction
               previousStep={previousStep}
-              id={id as string}
+              id={params?.id as string}
             />
           </InteractiveStepperContent>
         </InteractiveStepper>

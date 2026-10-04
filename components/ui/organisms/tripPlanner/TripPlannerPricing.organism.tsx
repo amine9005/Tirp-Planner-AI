@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/atoms/card/card";
 import { Check } from "lucide-react";
-import PaymentLinkMolecule from "../molecules/payment-link/PaymentLink.molecule";
+import PaymentLinkMolecule from "@/components/ui/molecules/payment-link/PaymentLink.molecule";
 
 enum PopularPlanType {
   NO = 0,
@@ -33,72 +33,43 @@ const pricingList: PricingProps[] = [
     popular: 0,
     price: 0,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+      "Get Started And Create beautiful Trips For You, Your Family And Friends",
     buttonText: "Get Started",
-    benefitList: [
-      "1 Team member",
-      "2 GB Storage",
-      "Upto 4 pages",
-      "Community support",
-      "lorem ipsum dolor",
-    ],
+    benefitList: ["10 Trip Plans Per Month"],
     href: "/sign-in",
     billing: "/month",
   },
   {
     title: "Premium",
     popular: 1,
-    price: 10,
-    description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+    price: 4.99,
+    description: "Best For Serious Explorers and Travelers.",
     buttonText: "Buy Now",
     benefitList: [
-      "4 Team member",
-      "4 GB Storage",
-      "Upto 6 pages",
-      "Priority support",
-      "lorem ipsum dolor",
+      "Unlimited Trip Plans",
+      "90 Days Trip History",
+      "24/7 Email Support",
+      "3D Place On Map",
     ],
     href: "/sign-in",
     paymentLink: process.env.STRIPE_PERSONAL_MONTHLY_PLAN_LINK!,
     billing: "/month",
   },
-  {
-    title: "Enterprise",
-    popular: 0,
-    price: 99,
-    description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Buy Now",
-    benefitList: [
-      "10 Team member",
-      "8 GB Storage",
-      "Upto 10 pages",
-      "Priority support",
-      "lorem ipsum dolor",
-    ],
-    href: "/sign-in",
-    paymentLink: process.env.STRIPE_PERSONAL_YEARLY_PLAN_LINK!,
-    billing: "/year",
-  },
 ];
 
-export const Pricing = () => {
+export const TripPlannerPricing = () => {
   return (
     <section id="pricing" className="w-full max-w-7xl mx-auto  py-8">
       <h2 className="text-3xl md:text-4xl font-bold text-center">
         Get
-        <span className="bg-linear-to-b from-[#667EEA] to-[#764BA2] uppercase text-transparent bg-clip-text">
+        <span className="bg-linear-to-r from-[#ffffff] to-primary uppercase text-transparent bg-clip-text">
           {" "}
           Unlimited{" "}
         </span>
         Access
       </h2>
-      <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-        reiciendis.
-      </h3>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8"></h3>
+      <div className="grid md:grid-cols-2 gap-8">
         {pricingList.map((pricing: PricingProps) => (
           <Card
             key={pricing.title}
@@ -136,13 +107,13 @@ export const Pricing = () => {
               />
             </CardContent>
 
-            <hr className="w-4/5 m-auto mb-4" />
+            <hr className="w-4/5 mx-auto mb-4" />
 
             <CardFooter className="flex">
               <div className="space-y-4">
                 {pricing.benefitList.map((benefit: string) => (
                   <span key={benefit} className="flex">
-                    <Check className="text-purple-500" />{" "}
+                    <Check className="text-primary" />{" "}
                     <h3 className="ml-2">{benefit}</h3>
                   </span>
                 ))}

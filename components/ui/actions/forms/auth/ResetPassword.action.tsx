@@ -18,7 +18,7 @@ import { redirect, useSearchParams } from "next/navigation";
 
 const ResetPasswordAction = () => {
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const token = searchParams && searchParams.get("token");
 
   const form = useResetPasswordForm();
   const { handleSubmit } = form;
