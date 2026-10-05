@@ -17,7 +17,9 @@ export const useUpdateSubscriptionMutationHook = () => {
     cancelUrl,
     returnUrl,
   }: props) => {
-    const response = await axiosInstance.post("/api/subscriptions", {
+    // console.log("subscription details", plan, successUrl, cancelUrl, returnUrl);
+
+    const response = await axiosInstance.post("/api/subscriptions/update", {
       plan,
       successUrl,
       cancelUrl,

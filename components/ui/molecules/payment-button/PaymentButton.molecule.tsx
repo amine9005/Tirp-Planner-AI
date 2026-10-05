@@ -1,3 +1,4 @@
+"use client";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/atoms/button/button";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ interface Props {
   cancelUrl: string;
   returnUrl?: string;
   text?: string;
+  href: string;
 }
 const PaymentButtonMolecule = ({
   cancelUrl,
@@ -17,6 +19,7 @@ const PaymentButtonMolecule = ({
   successUrl,
   returnUrl,
   text,
+  href,
 }: Props) => {
   const [user, setUser] = useState(false);
   const [loading, seLoading] = useState(false);
@@ -36,27 +39,36 @@ const PaymentButtonMolecule = ({
     successUrl,
     cancelUrl,
     returnUrl,
+    href,
   }: Props) => {
     if (user) {
       seLoading(true);
 
-      const data = await updateSubscription({
+      const resp = await updateSubscription({
         plan,
         successUrl,
         cancelUrl,
         returnUrl,
       });
       seLoading(false);
-      console.log("subscription data ", data);
+      redirect(resp.data.data.url);
+    } else {
+      // console.log("user not authenticated");
+      seLoading(false);
+
+      redirect(href);
     }
   };
 
   return (
     <Button
-      onClick={() => handle_click({ plan, successUrl, cancelUrl, returnUrl })}
+      onClick={() =>
+        handle_click({ plan, successUrl, cancelUrl, returnUrl, href })
+      }
+      disabled={loading}
     >
       {text}
-      {!loading && <Loader2 className="size-5 animate-spin" />}
+      {loading && <Loader2 className="size-5 animate-spin" />}
     </Button>
   );
 };

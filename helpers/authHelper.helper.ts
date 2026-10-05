@@ -38,6 +38,16 @@ export async function authNotRequired() {
   }
 }
 
+export async function getUserData() {
+  try {
+    const data = await getSession();
+    return data?.user;
+  } catch (e) {
+    console.log("Get User Data Error: ", e);
+    return null;
+  }
+}
+
 // export async function isPremiumUser() {
 //   const result = await isSubscribedAction();
 

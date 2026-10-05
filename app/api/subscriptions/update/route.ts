@@ -7,6 +7,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { plan, successUrl, cancelUrl, returnUrl } = await req.json();
+  // console.log(
+  //   "subscription details from server: ",
+  //   plan,
+  //   successUrl,
+  //   cancelUrl,
+  //   returnUrl,
+  // );
   try {
     const data = await auth.api.upgradeSubscription({
       body: {

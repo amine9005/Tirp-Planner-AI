@@ -1,3 +1,4 @@
+"use client";
 import { Badge } from "@/components/ui/atoms/badge/badge";
 import {
   Card,
@@ -7,8 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/atoms/card/card";
-import { Check } from "lucide-react";
-import PaymentLinkMolecule from "@/components/ui/molecules/payment-link/PaymentLink.molecule";
+import { Check, Loader2Icon } from "lucide-react";
+
+import PaymentButtonMolecule from "@/components/ui/molecules/payment-button/PaymentButton.molecule";
+import { H2 } from "@/components/ui/atoms/heading/heading2";
+import { P } from "@/components/ui/atoms/text/Text";
+import { useGetSubscriptionHook } from "@/hooks/queries/useUser.hook";
 
 enum PopularPlanType {
   NO = 0,
@@ -23,6 +28,10 @@ interface PricingProps {
   buttonText: string;
   benefitList: string[];
   href: string;
+  plan: string;
+  successUrl?: string;
+  cancelUrl?: string;
+  redirectUrl?: string;
   paymentLink?: string;
   billing: string;
 }
@@ -37,6 +46,10 @@ const pricingList: PricingProps[] = [
     buttonText: "Get Started",
     benefitList: ["10 Trip Plans Per Month"],
     href: "/sign-in",
+    plan: "free",
+    successUrl: "/payment-success",
+    cancelUrl: "/payment-cancel",
+    redirectUrl: "/payment-success",
     billing: "/month",
   },
   {
@@ -52,12 +65,44 @@ const pricingList: PricingProps[] = [
       "3D Place On Map",
     ],
     href: "/sign-in",
-    paymentLink: process.env.STRIPE_PERSONAL_MONTHLY_PLAN_LINK!,
+    plan: "premium",
+    successUrl: "/payment-success",
+    cancelUrl: "/payment-cancel",
+    redirectUrl: "/payment-success",
     billing: "/month",
   },
 ];
 
 export const TripPlannerPricing = () => {
+  const { loading, data, error } = useGetSubscriptionHook();
+  // console.log(
+  //   "islanding " + loading,
+  //   " error: " + error + " subscription: ",
+  //   data,
+  // );
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center gap-4">
+          <Loader2Icon className="animate-spin size-10" />
+          <P>Loading...</P>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    console.log("error ", error);
+    return (
+      <div className="flex justify-center items-center h-screen p-16">
+        <P size={"xl"} variant={"error"}>
+          {"Failed To Load Pricing Information."}
+        </P>
+      </div>
+    );
+  }
+
   return (
     <section id="pricing" className="w-full max-w-7xl mx-auto  py-8">
       <h2 className="text-3xl md:text-4xl font-bold text-center">
@@ -74,8 +119,8 @@ export const TripPlannerPricing = () => {
           <Card
             key={pricing.title}
             className={
-              pricing.popular === PopularPlanType.YES
-                ? "drop-shadow-xl shadow-black/10 dark:shadow-white/10"
+              pricing.title.toUpperCase() === data.toUpperCase()
+                ? "bg-gray-800"
                 : ""
             }
           >
@@ -100,11 +145,17 @@ export const TripPlannerPricing = () => {
             </CardHeader>
 
             <CardContent>
-              <PaymentLinkMolecule
-                href={pricing.href}
-                paymentLink={pricing.paymentLink}
-                text={pricing.buttonText}
-              />
+              {pricing.title.toUpperCase() === data.toUpperCase() ? (
+                <H2 variant={"primary"}> Current Active Plan</H2>
+              ) : (
+                <PaymentButtonMolecule
+                  successUrl={pricing.successUrl!}
+                  cancelUrl={pricing.cancelUrl!}
+                  plan={pricing.plan!}
+                  href={pricing.href}
+                  text={pricing.buttonText}
+                />
+              )}
             </CardContent>
 
             <hr className="w-4/5 mx-auto mb-4" />

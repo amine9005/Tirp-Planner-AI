@@ -5,22 +5,23 @@ import { getClient } from "@/db/mongoose";
 // import { bearer } from "better-auth/plugins";
 import { stripe } from "@better-auth/stripe";
 import Stripe from "stripe";
+import mongoose from "mongoose";
 const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-import {
-  sendResetPasswordEmailAction,
-  sendVerificationEmailAction,
-} from "@/app/api/actions/emails/emails.controller";
+// import {
+//   sendResetPasswordEmailAction,
+//   sendVerificationEmailAction,
+// } from "@/app/api/actions/emails/emails.controller";
 
-const client = await getClient();
+const db = await getClient();
 export const auth = betterAuth({
-  database: mongodbAdapter(client),
+  database: mongodbAdapter(db),
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
-    sendResetPassword: async ({ user, url }) => {
-      sendResetPasswordEmailAction(user.name, user.email, url);
-    },
+    // requireEmailVerification: true,
+    // sendResetPassword: async ({ user, url }) => {
+    //   sendResetPasswordEmailAction(user.name, user.email, url);
+    // },
   },
   socialProviders: {
     google: {
@@ -30,25 +31,20 @@ export const auth = betterAuth({
       prompt: "select_account",
     },
   },
-  emailVerification: {
-    autoSignInAfterVerification: true,
-    sendOnSignUp: true,
-    sendVerificationEmail: async ({ user, url }) => {
-      sendVerificationEmailAction(user.email, url);
-    },
-  },
+  // emailVerification: {
+  //   autoSignInAfterVerification: true,
+  //   sendOnSignUp: true,
+  //   sendVerificationEmail: async ({ user, url }) => {
+  //     sendVerificationEmailAction(user.email, url);
+  //   },
+  // },
   user: {
     additionalFields: {
       limit: {
         type: "number",
         required: false,
-        defaultValue: 30,
+        defaultValue: 10,
         input: false, // allow user to set role - false with hide this field,
-      },
-      subscription: {
-        type: "string",
-        required: true,
-        defaultValue: "free",
       },
     },
   },
@@ -61,6 +57,17 @@ export const auth = betterAuth({
       createCustomerOnSignUp: true,
       subscription: {
         enabled: true,
+        authorizeReference: async ({ user, session, referenceId, action }) => {
+          // Check if the user has permission to manage subscriptions for this reference
+          if (
+            action === "upgrade-subscription" ||
+            action === "cancel-subscription" ||
+            action === "restore-subscription"
+          ) {
+            return user.id === referenceId;
+          }
+          return true;
+        },
         plans: [
           {
             name: "free", // the name of the plan, it'll be automatically lower cased when stored in the database
