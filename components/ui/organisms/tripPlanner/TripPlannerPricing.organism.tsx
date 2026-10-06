@@ -13,7 +13,10 @@ import { Check, Loader2Icon } from "lucide-react";
 import PaymentButtonMolecule from "@/components/ui/molecules/payment-button/PaymentButton.molecule";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
-import { useGetSubscriptionHook } from "@/hooks/queries/useUser.hook";
+import {
+  useGetSubscriptionQuery,
+  useUserQuery,
+} from "@/hooks/queries/useUser.hook";
 
 enum PopularPlanType {
   NO = 0,
@@ -74,31 +77,32 @@ const pricingList: PricingProps[] = [
 ];
 
 export const TripPlannerPricing = () => {
-  const { loading, data, error } = useGetSubscriptionHook();
+  const { data: userData, isLoading: isLoadingUserData } = useUserQuery();
+  const { error, data, isLoading } = useGetSubscriptionQuery(userData?.user.id);
+
   // console.log(
-  //   "islanding " + loading,
-  //   " error: " + error + " subscription: ",
-  //   data,
+  //   "data ",
+  //   JSON.stringify(data) + " isLoading " + isLoading + " error " + error,
   // );
 
-  if (loading) {
+  if (error) {
+    console.log("userDataError  ", error);
+    return (
+      <div className="flex justify-center items-center h-screen p-16">
+        <P size={"xl"} variant={"error"}>
+          {"Failed To Load Pricing Information."}
+        </P>
+      </div>
+    );
+  }
+
+  if (isLoading || isLoadingUserData || !data) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center gap-4">
           <Loader2Icon className="animate-spin size-10" />
           <P>Loading...</P>
         </div>
-      </div>
-    );
-  }
-
-  if (!data) {
-    console.log("error ", error);
-    return (
-      <div className="flex justify-center items-center h-screen p-16">
-        <P size={"xl"} variant={"error"}>
-          {"Failed To Load Pricing Information."}
-        </P>
       </div>
     );
   }
@@ -119,7 +123,7 @@ export const TripPlannerPricing = () => {
           <Card
             key={pricing.title}
             className={
-              pricing.title.toUpperCase() === data.toUpperCase()
+              pricing.title.toUpperCase() === data!.toUpperCase()
                 ? "bg-gray-800"
                 : ""
             }
@@ -145,7 +149,7 @@ export const TripPlannerPricing = () => {
             </CardHeader>
 
             <CardContent>
-              {pricing.title.toUpperCase() === data.toUpperCase() ? (
+              {pricing.title.toUpperCase() === data!.toUpperCase() ? (
                 <H2 variant={"primary"}> Current Active Plan</H2>
               ) : (
                 <PaymentButtonMolecule

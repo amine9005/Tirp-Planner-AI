@@ -6,7 +6,7 @@ import { ArrowDown, Send } from "lucide-react";
 import { HeroVideoDialog } from "@/components/ui/atoms/hero-video-dialog/hero-video-dialog";
 import Link from "next/link";
 
-import SuggestionsAction from "@/components/ui/actions/AI/Suggestions.action";
+import SuggestionsAction from "@/components/ui/actions/AI/trip-planner/Suggestions.action";
 
 const Hero1Organism = () => {
   return (

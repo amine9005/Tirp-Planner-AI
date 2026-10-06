@@ -2,6 +2,8 @@ import { useAIMessagesStore } from "@/store/AI/messages.store";
 import { useAI_Mutation } from "../mutations/useAI-ModelMutation.hook";
 import { useRef } from "react";
 import { MessageAISchemaType } from "@/validations/AI.zod";
+import { useGetSubscriptionQuery, useUserQuery } from "../queries/useUser.hook";
+import { useUserDataMutation } from "../mutations/useUpdateUserDataMutation.hook";
 
 export function useAiSendMessageHook() {
   const { mutateAsync: sendMessage } = useAI_Mutation();
@@ -13,12 +15,31 @@ export function useAiSendMessageHook() {
   const setIsLoading = useAIMessagesStore((state) => state.setIsLoading);
   const setIsFinal = useAIMessagesStore((state) => state.setIsFinal);
   const setMessages = useAIMessagesStore((state) => state.setMessages);
-
+  const { isLoading: isLoadingUserData, data: userData } = useUserQuery();
+  const { data: subscription, isLoading: isLoadingSubscription } =
+    useGetSubscriptionQuery(userData?.user.id);
+  const { mutateAsync: updateUserData } = useUserDataMutation();
   const messageArrayRef = useRef<MessageAISchemaType[]>(messages);
 
   const onSend = async ({ message }: { message: string }) => {
     // console.log("isFinal ", isFinal);
-    if (isLoading || message.length < 2 || isFinal) return;
+    if (
+      isLoading ||
+      message.length < 2 ||
+      isFinal ||
+      isLoadingUserData ||
+      isLoadingSubscription ||
+      !userData
+    )
+      return;
+
+    console.log("User limit: ", userData.user.limit);
+    if (subscription === "free") {
+      if ((userData.user.limit as number) <= 0) {
+        console.log("user limit reached");
+        return;
+      }
+    }
 
     setIsLoading(true);
 
@@ -48,6 +69,13 @@ export function useAiSendMessageHook() {
       });
 
       setIsFinal(aiMsg.ui === "Final");
+
+      if (aiMsg.ui === "Final" && subscription === "free") {
+        await updateUserData({
+          userId: userData.user.id,
+          limit: (userData.user.limit as number) - 1,
+        });
+      }
     } catch (error) {
       console.log(error);
       messageArrayRef.current.push({

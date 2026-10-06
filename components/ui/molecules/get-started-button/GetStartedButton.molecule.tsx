@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const GetStartedButtonMolecule = () => {
   const { data: user } = useUserQuery();
-  console.log("user ", user);
+  // console.log("user ", user);
 
   const link = user ? "create-new-trip" : "/sign-in";
   const text = user ? "Create New Trip" : "Get Started";
@@ -16,7 +16,7 @@ const GetStartedButtonMolecule = () => {
         variant: "default",
         size: "sm",
         className: "py-4",
-        width: "md",
+        width: "lg",
       })}
       href={link}
     >

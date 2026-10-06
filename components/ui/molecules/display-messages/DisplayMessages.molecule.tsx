@@ -4,7 +4,7 @@ import {
   LoadingStateType,
 } from "@/types/create-trip.types";
 import UserWelcomeMolecule from "@/components/ui/molecules/trip-planner/UserWelcome.molecule";
-import DisplaySelectUIAction from "@/components/ui/actions/AI/DisplaySelectUI.action";
+import DisplaySelectUIAction from "@/components/ui/actions/AI/trip-planner/DisplaySelectUI.action";
 
 const DisplayMessagesMolecule = ({
   messages,

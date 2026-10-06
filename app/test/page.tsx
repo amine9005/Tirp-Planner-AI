@@ -6,7 +6,7 @@ import {
 import SelectByIconOrganism from "@/components/ui/organisms/tripPlanner/SelectByIcon.organism";
 import SelectDays from "@/components/ui/actions/forms/select-days/SelectDays.organism";
 import { useAiSendMessageHook } from "@/hooks/submit/useAiSendMessageSubmit.hook";
-import FinalTripAction from "@/components/ui/actions/AI/FinalTrip.action";
+import FinalTripAction from "@/components/ui/actions/AI/trip-planner/FinalTrip.action";
 import Image from "next/image";
 
 const Page = () => {

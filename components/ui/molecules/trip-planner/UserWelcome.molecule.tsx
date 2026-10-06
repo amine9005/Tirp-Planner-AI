@@ -1,6 +1,6 @@
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { P } from "@/components/ui/atoms/text/Text";
-import SuggestionsAction from "../../actions/AI/Suggestions.action";
+import SuggestionsAction from "../../actions/AI/trip-planner/Suggestions.action";
 
 const UserWelcomeMolecule = () => {
   return (

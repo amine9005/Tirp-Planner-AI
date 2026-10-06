@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ActivityType } from "@/types/create-trip.types";
 import { useUnsplashImagesQuery } from "@/hooks/queries/useUnsplashImagesQuery.hook";
 import { useGooglePlacesImagesMutation } from "@/hooks/mutations/useGooglePlacesApiMutation.hook";
-import ActivityCard from "../../organisms/cards/trip-planner/Activity.card";
+import ActivityCard from "../../../organisms/cards/trip-planner/Activity.card";
 
 const ActivityCardAction = ({ activity }: { activity: ActivityType }) => {
   const { mutateAsync: placeDetails } = useGooglePlacesImagesMutation();

@@ -18,46 +18,66 @@ export const useUserQuery = () => {
   });
 };
 
-export const useGetSubscriptionHook = () => {
-  const [userId, setUserId] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const { data, error } = useGetSubscriptionQuery(userId);
+// export const useGetSubscriptionHook = () => {
+//   const [data, setData] = useState("");
+//   const [isLoading, setIsLoading] = useState<boolean>(false);
+//   const [error, setError] = useState<Error | null | unknown>(null);
+//   const { data: userData, isLoading: isLoadingUserData } = useUserQuery();
 
-  useEffect(() => {
-    const getUserId = async () => {
-      setLoading(true);
-      const resp = await getSession();
-      if (!resp) return;
-      setUserId(resp.user.id);
-      if (userId && (data || error)) {
-        setLoading(false);
-      }
-    };
+//   useEffect(() => {
+//     const getSubscription = async () => {
+//       try {
+//         setIsLoading(true);
+//         const id = userData?.user.id;
 
-    getUserId();
-  }, [data, userId, error]);
+//         if (!id) {
+//           return null;
+//         }
+//         const resp = await axiosInstance.get("api/subscriptions/" + id);
 
-  return { data, loading, error };
-};
+//         // console.log("resp ", resp);
+//         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//         resp.data.subscription.map((sub: any) => {
+//           if (sub.status === "active") {
+//             setData(sub.plan);
+//           }
+//         });
+//         setIsLoading(false);
+//       } catch (error) {
+//         console.log("error ", error);
+//         setError(error);
+//       }
+//     };
 
-export const useGetSubscriptionQuery = (id: string) => {
-  const [subscription, setSubscription] = useState("");
+//     getSubscription();
+//   }, [userData]);
 
-  const getSubscription = async ({ id }: { id: string }) => {
+//   return {
+//     data,
+//     isLoading,
+//     error,
+//     isLoadingUserData,
+//   };
+// };
+
+export const useGetSubscriptionQuery = (id: string | undefined) => {
+  const getSubscription = async () => {
+    if (!id) return null;
     const resp = await axiosInstance.get("api/subscriptions/" + id);
+    let res: string = "";
 
-    console.log("resp ", resp);
+    // console.log("resp ", resp);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resp.data.subscription.map((sub: any) => {
       if (sub.status === "active") {
-        setSubscription(sub.plan);
+        res = sub.plan as string;
       }
     });
-    return subscription;
+    return res ? res : "free";
   };
 
   return useQuery({
-    queryFn: () => getSubscription({ id }),
+    queryFn: getSubscription,
     queryKey: ["subscription"],
     staleTime: 5,
   });

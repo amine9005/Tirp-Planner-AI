@@ -16,10 +16,10 @@ const ActivityCard = ({
   return (
     <div className={"flex flex-col justify-between gap-2 h-120"}>
       <Image
-        src={place_image ? place_image : "travel-placeholder.jpg"}
+        src={place_image ? place_image : "/travel-placeholder.jpg"}
         width={400}
         height={200}
-        alt={"travel-placeholder.jpg"}
+        alt={"/travel-placeholder.jpg"}
         className="object-cover rounded-xl w-full h-50 mb-2"
       />
       <H2 size={"lg"}>{activity.place_name}</H2>

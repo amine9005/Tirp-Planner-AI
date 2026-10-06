@@ -11,7 +11,7 @@ const SelectByIconOrganism = ({
   onSend: ({ message }: { message: string }) => void;
 }) => {
   return (
-    <div className="flex justify-center items-center mt-4 gap-2 ">
+    <div className="flex sm:grid sm:grid-cols-2 justify-center items-center mt-4 gap-2 ">
       {items.map((Item, index) => (
         <Link
           key={index}
