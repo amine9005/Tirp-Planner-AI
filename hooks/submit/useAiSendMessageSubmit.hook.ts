@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { MessageAISchemaType } from "@/validations/AI.zod";
 import { useGetSubscriptionQuery, useUserQuery } from "../queries/useUser.hook";
 import { useUserDataMutation } from "../mutations/useUpdateUserDataMutation.hook";
+import toast from "react-hot-toast";
 
 export function useAiSendMessageHook() {
   const { mutateAsync: sendMessage } = useAI_Mutation();
@@ -16,7 +17,7 @@ export function useAiSendMessageHook() {
   const setIsFinal = useAIMessagesStore((state) => state.setIsFinal);
   const setMessages = useAIMessagesStore((state) => state.setMessages);
   const { isLoading: isLoadingUserData, data: userData } = useUserQuery();
-  const { data: subscription, isLoading: isLoadingSubscription } =
+  const { data: subscriptionData, isLoading: isLoadingSubscription } =
     useGetSubscriptionQuery(userData?.user.id);
   const { mutateAsync: updateUserData } = useUserDataMutation();
   const messageArrayRef = useRef<MessageAISchemaType[]>(messages);
@@ -29,13 +30,15 @@ export function useAiSendMessageHook() {
       isFinal ||
       isLoadingUserData ||
       isLoadingSubscription ||
-      !userData
+      !userData ||
+      !subscriptionData?.plan
     )
       return;
 
-    console.log("User limit: ", userData.user.limit);
-    if (subscription === "free") {
+    console.log("User limit: ", subscriptionData);
+    if (subscriptionData.plan === "free") {
       if ((userData.user.limit as number) <= 0) {
+        toast.error("You have reached your limit! Please upgrade your plan.");
         console.log("user limit reached");
         return;
       }
@@ -70,7 +73,7 @@ export function useAiSendMessageHook() {
 
       setIsFinal(aiMsg.ui === "Final");
 
-      if (aiMsg.ui === "Final" && subscription === "free") {
+      if (aiMsg.ui === "Final" && subscriptionData.plan === "free") {
         await updateUserData({
           userId: userData.user.id,
           limit: (userData.user.limit as number) - 1,

@@ -17,13 +17,14 @@ import {
   useGetSubscriptionQuery,
   useUserQuery,
 } from "@/hooks/queries/useUser.hook";
+import BillingPortalButtonMolecule from "../../molecules/billing-portal-button/BillingPortalButton.molecule";
 
 enum PopularPlanType {
   NO = 0,
   YES = 1,
 }
 
-interface PricingProps {
+interface PricingCardProps {
   title: string;
   popular: PopularPlanType;
   price: number;
@@ -39,7 +40,7 @@ interface PricingProps {
   billing: string;
 }
 
-const pricingList: PricingProps[] = [
+const pricingList: PricingCardProps[] = [
   {
     title: "Free",
     popular: 0,
@@ -60,7 +61,7 @@ const pricingList: PricingProps[] = [
     popular: 1,
     price: 4.99,
     description: "Best For Serious Explorers and Travelers.",
-    buttonText: "Buy Now",
+    buttonText: "Upgrade",
     benefitList: [
       "Unlimited Trip Plans",
       "90 Days Trip History",
@@ -107,23 +108,29 @@ export const TripPlannerPricing = () => {
     );
   }
 
+  const { plan } = data;
+
   return (
     <section id="pricing" className="w-full max-w-7xl mx-auto  py-8">
-      <h2 className="text-3xl md:text-4xl font-bold text-center">
-        Get
+      <h2 className="text-xl md:text-2xl font-bold text-center">
         <span className="bg-linear-to-r from-[#ffffff] to-primary uppercase text-transparent bg-clip-text">
           {" "}
-          Unlimited{" "}
+          AI Powered{" "}
         </span>
-        Access
+        Trip Planning Get{" "}
+        {/* <span className="bg-linear-to-r from-[#ffffff] to-primary uppercase text-transparent bg-clip-text">
+          {" "}
+          Unlimited{" "}
+        </span> */}
+        Unlimited Access
       </h2>
       <h3 className="text-xl text-center text-muted-foreground pt-4 pb-8"></h3>
       <div className="grid md:grid-cols-2 gap-8">
-        {pricingList.map((pricing: PricingProps) => (
+        {pricingList.map((pricing: PricingCardProps) => (
           <Card
             key={pricing.title}
             className={
-              pricing.title.toUpperCase() === data!.toUpperCase()
+              pricing.title.toUpperCase() === plan.toUpperCase()
                 ? "bg-gray-800"
                 : ""
             }
@@ -149,8 +156,25 @@ export const TripPlannerPricing = () => {
             </CardHeader>
 
             <CardContent>
-              {pricing.title.toUpperCase() === data!.toUpperCase() ? (
+              {" "}
+              {userData?.user &&
+              pricing.title.toUpperCase() === plan.toUpperCase() ? (
                 <H2 variant={"primary"}> Current Active Plan</H2>
+              ) : pricing.title.toUpperCase() === "FREE" ? (
+                data.cancelAt ? (
+                  <H2 size={"md"}>
+                    This Subscription Will Be Active Starting At:
+                    <strong className="text-primary">
+                      {" " + new Date(data.cancelAt).toDateString()}
+                    </strong>
+                  </H2>
+                ) : (
+                  <BillingPortalButtonMolecule
+                    referenceId={userData?.user.id}
+                    returnUrl="/pricing"
+                    text={"Cancel subscription"}
+                  />
+                )
               ) : (
                 <PaymentButtonMolecule
                   successUrl={pricing.successUrl!}

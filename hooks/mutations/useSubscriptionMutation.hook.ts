@@ -35,3 +35,29 @@ export const useUpdateSubscriptionMutationHook = () => {
     },
   });
 };
+
+export const useGetBillingPortalHook = () => {
+  const queryClient = useQueryClient();
+  const useGetBillingPortalHookFn = async ({
+    referenceId,
+    returnUrl,
+  }: {
+    referenceId: string;
+    returnUrl: string;
+  }) => {
+    // console.log("subscription details", plan, successUrl, cancelUrl, returnUrl);
+
+    const response = await axiosInstance.post("/api/subscriptions/portal", {
+      referenceId,
+      returnUrl,
+    });
+    return response;
+  };
+
+  return useMutation({
+    mutationFn: useGetBillingPortalHookFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["portal"] });
+    },
+  });
+};

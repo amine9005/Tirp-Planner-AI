@@ -1,7 +1,7 @@
 import { getSession } from "@/helpers/authHelper.helper";
 import axiosInstance from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 // Custom hook to fetch User using React Query
 export const useUserQuery = () => {
@@ -64,16 +64,21 @@ export const useGetSubscriptionQuery = (id: string | undefined) => {
   const getSubscription = async () => {
     if (!id) return null;
     const resp = await axiosInstance.get("api/subscriptions/" + id);
-    let res: string = "";
+    let plan: string = "";
+    let stripeSubscriptionId: string = "";
+    let cancelAt: Date | null = null;
 
     // console.log("resp ", resp);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resp.data.subscription.map((sub: any) => {
       if (sub.status === "active") {
-        res = sub.plan as string;
+        plan = sub.plan as string;
+        stripeSubscriptionId = sub.stripeSubscriptionId as string;
+        cancelAt = sub.cancelAt;
       }
     });
-    return res ? res : "free";
+    plan = plan ? plan : "free";
+    return { plan, stripeSubscriptionId, cancelAt };
   };
 
   return useQuery({

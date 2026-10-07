@@ -5,7 +5,7 @@ import { getClient } from "@/db/mongoose";
 // import { bearer } from "better-auth/plugins";
 import { stripe } from "@better-auth/stripe";
 import Stripe from "stripe";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 // import {
@@ -57,7 +57,7 @@ export const auth = betterAuth({
       createCustomerOnSignUp: true,
       subscription: {
         enabled: true,
-        authorizeReference: async ({ user, session, referenceId, action }) => {
+        authorizeReference: async ({ user, referenceId, action }) => {
           // Check if the user has permission to manage subscriptions for this reference
           if (
             action === "upgrade-subscription" ||
