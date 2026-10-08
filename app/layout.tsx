@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import TanStackProvider from "@/providers/TanStackProvider";
 import Footer1Organism from "@/components/ui/organisms/footers/Footer1.organism";
 import { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+// import "react-loading-skeleton/dist/skeleton.css";
 // import { CSSProperties } from "react";
 // import { serverSettingsQuery } from "@/hooks/queries/useSettingsQuery.hook";
 import Navbar2Organism from "@/components/ui/organisms/navbars/Navbar2.organism";
+import { TanStackProvider } from "@/providers/TanStackProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

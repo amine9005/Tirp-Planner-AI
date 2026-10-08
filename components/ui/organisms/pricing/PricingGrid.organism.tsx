@@ -3,54 +3,27 @@
 import { Loader2Icon } from "lucide-react";
 
 import { P } from "@/components/ui/atoms/text/Text";
-import {
-  useGetSubscriptionQuery,
-  useUserQuery,
-} from "@/hooks/queries/useUser.hook";
 import PricingCard from "../pricing/Pricing.card";
-import { PricingCardProps } from "@/types/pricing.types";
+import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
+import { User } from "better-auth";
 
-const pricingList: PricingCardProps[] = [
-  {
-    title: "Free",
-    popular: 0,
-    price: 0,
-    description:
-      "Get Started And Create beautiful Trips For You, Your Family And Friends",
-    buttonText: "Get Started",
-    benefitList: ["10 Trip Plans Per Month"],
-    href: "/sign-in",
-    plan: "free",
-    successUrl: "/payment-success",
-    cancelUrl: "/payment-cancel",
-    redirectUrl: "/payment-success",
-    billing: "/month",
-  },
-  {
-    title: "Premium",
-    popular: 1,
-    price: 4.99,
-    description: "Best For Serious Explorers and Travelers.",
-    buttonText: "Upgrade",
-    benefitList: [
-      "Unlimited Trip Plans",
-      "90 Days Trip History",
-      "24/7 Email Support",
-      "3D Place On Map",
-    ],
-    href: "/sign-in",
-    plan: "premium",
-    successUrl: "/payment-success",
-    cancelUrl: "/payment-cancel",
-    redirectUrl: "/payment-success",
-    billing: "/month",
-  },
-];
+interface Props {
+  error: Error | null;
+  isPending: boolean;
+  isLoadingUserData: boolean;
+  userData: User;
+  pricingList: PricingCardProps[];
+  data: SubscriptionDataType;
+}
 
-export const TripPlannerPricing = () => {
-  const { data: userData, isPending: isLoadingUserData } = useUserQuery();
-  const { error, data, isPending } = useGetSubscriptionQuery(userData?.user.id);
-
+export const PricingGridOrganism = ({
+  error,
+  isPending,
+  isLoadingUserData,
+  userData,
+  pricingList,
+  data,
+}: Props) => {
   // console.log(
   //   "data ",
   //   JSON.stringify(data) + " isPending " + isPending + " error " + error,
@@ -100,7 +73,7 @@ export const TripPlannerPricing = () => {
             key={idx}
             pricing={pricing}
             data={data}
-            userData={userData?.user}
+            userData={userData}
           />
         ))}
       </div>

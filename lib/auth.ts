@@ -6,7 +6,10 @@ import { getClient } from "@/db/mongoose";
 import { stripe } from "@better-auth/stripe";
 import Stripe from "stripe";
 // import mongoose from "mongoose";
-const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2026-08-26.dahlia", // Latest API version as of Stripe SDK v22.0.0
+});
 
 // import {
 //   sendResetPasswordEmailAction,
@@ -89,3 +92,5 @@ export const auth = betterAuth({
     }),
   ],
 });
+
+export type Session = typeof auth.$Infer.Session;

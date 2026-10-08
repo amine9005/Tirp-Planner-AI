@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 // const db = await getClient();
 
 export async function POST(req: NextRequest) {
-  const { referenceId, returnUrl } = await req.json();
+  const { referenceId, returnUrl, subscriptionId } = await req.json();
 
   // const user = await db
   //   .collection("user")
@@ -20,11 +20,11 @@ export async function POST(req: NextRequest) {
   //   returnUrl,
   // );
   try {
-    const data = await auth.api.createBillingPortal({
+    const data = await auth.api.cancelSubscription({
       body: {
-        referenceId, // Reference id of the subscription.
-        returnUrl, // Return URL to redirect back after exiting the billing portal.
-        disableRedirect: false, // Disable the automatic redirect to the billing page. @default false
+        referenceId, // Reference id of the subscription to cancel. Defaults based on customerType.
+        subscriptionId, // The id of the subscription to cancel.
+        returnUrl, // required, URL to take customers to when they click on the billing portal's link to return to your website.
       },
       // This endpoint requires session cookies.
       headers: await headers(),

@@ -1,11 +1,21 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-const queryClient = new QueryClient();
-const TanStackProvider = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-};
 
-export default TanStackProvider;
+let browserQueryClient: QueryClient | undefined;
+
+function getQueryClient() {
+  // Keep server requests isolated and preserve the browser cache across renders.
+  if (typeof window === "undefined") return new QueryClient();
+  browserQueryClient ??= new QueryClient();
+  return browserQueryClient;
+}
+
+export function TanStackProvider({ children }: { children: ReactNode }) {
+  return (
+    <QueryClientProvider client={getQueryClient()}>
+      {children}
+    </QueryClientProvider>
+  );
+}

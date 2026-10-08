@@ -61,3 +61,29 @@ export const useGetBillingPortalHook = () => {
     },
   });
 };
+
+export const useRestoreSubscriptionHook = () => {
+  const queryClient = useQueryClient();
+  const useRestoreSubscriptionHookHookFn = async ({
+    referenceId,
+    subscriptionId,
+  }: {
+    referenceId: string;
+    subscriptionId: string;
+  }) => {
+    // console.log("subscription details", plan, successUrl, cancelUrl, returnUrl);
+
+    const response = await axiosInstance.post("/api/subscriptions/restore", {
+      referenceId,
+      subscriptionId,
+    });
+    return response;
+  };
+
+  return useMutation({
+    mutationFn: useRestoreSubscriptionHookHookFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["subscription"] });
+    },
+  });
+};
