@@ -57,7 +57,7 @@ export const useGetBillingPortalHook = () => {
   return useMutation({
     mutationFn: useGetBillingPortalHookFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["portal"] });
+      queryClient.invalidateQueries({ queryKey: ["subscription"] });
     },
   });
 };

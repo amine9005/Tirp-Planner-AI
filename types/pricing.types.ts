@@ -22,5 +22,22 @@ export interface PricingCardProps {
 export interface SubscriptionDataType {
   plan: string;
   stripeSubscriptionId: string;
-  cancelAt: null;
+  status:
+    | "active"
+    | "canceled"
+    | "incomplete"
+    | "incomplete_expired"
+    | "past_due"
+    | "paused"
+    | "trialing"
+    | "unpaid";
+  periodStart?: Date | undefined;
+  periodEnd?: Date | undefined;
+  cancelAtPeriodEnd?: boolean | undefined;
+  cancelAt?: Date | undefined;
+  canceledAt?: Date | undefined;
+}
+
+export interface Dictionary<T> {
+  [key: string]: T;
 }

@@ -1,5 +1,6 @@
 import { getSession } from "@/helpers/authHelper.helper";
 import axiosInstance from "@/lib/axios";
+import { Dictionary, SubscriptionDataType } from "@/types/pricing.types";
 import { useQuery } from "@tanstack/react-query";
 // import { useEffect, useState } from "react";
 
@@ -64,21 +65,24 @@ export const useGetSubscriptionQuery = (id: string | undefined) => {
   const getSubscription = async () => {
     if (!id) return null;
     const resp = await axiosInstance.get("api/subscriptions/" + id);
-    let plan: string = "";
-    let stripeSubscriptionId: string = "";
-    let cancelAt: Date | null = null;
+
+    const data: Dictionary<SubscriptionDataType> = {};
 
     // console.log("resp ", resp);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resp.data.subscription.map((sub: any) => {
-      if (sub.status === "active") {
-        plan = sub.plan as string;
-        stripeSubscriptionId = sub.stripeSubscriptionId as string;
-        cancelAt = sub.cancelAt;
-      }
+      data[(sub.plan as string).toUpperCase()] = {
+        plan: sub.plan,
+        status: sub.status,
+        stripeSubscriptionId: sub.stripeSubscriptionId,
+        cancelAt: sub.cancelAt,
+        cancelAtPeriodEnd: sub.cancelAtPeriodEnd,
+        canceledAt: sub.cancelAt,
+        periodEnd: sub.periodEnd,
+        periodStart: sub.periodStart,
+      };
     });
-    plan = plan ? plan : "free";
-    return { plan, stripeSubscriptionId, cancelAt };
+    return data;
   };
 
   return useQuery({

@@ -7,19 +7,15 @@ import {
   CardTitle,
 } from "@/components/ui/atoms/card/card";
 import {
+  Dictionary,
   PopularPlanType,
   PricingCardProps,
   SubscriptionDataType,
 } from "@/types/pricing.types";
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/atoms/badge/badge";
-import { H2 } from "@/components/ui/atoms/heading/heading2";
-import BillingPortalButtonMolecule from "@/components/ui/molecules/billing-portal-button/BillingPortalButton.molecule";
-import PaymentButtonMolecule from "@/components/ui/molecules/payment-button/PaymentButton.molecule";
 import { User } from "better-auth";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/atoms/button/button.variants";
-import RestoreSubscriptionButtonMolecule from "@/components/ui/molecules/restore-subscription-button/RestoreSubscriptionButton.molecule";
+import PortalBaseSubscriptionAction from "@/components/ui/actions/subscription/PortalBaseSubscription.action";
 const PricingCard = ({
   pricing,
   userData,
@@ -27,72 +23,16 @@ const PricingCard = ({
 }: {
   pricing: PricingCardProps;
   userData: User | undefined;
-  data: SubscriptionDataType | null;
+  data: Dictionary<SubscriptionDataType> | null | undefined;
 }) => {
-  const handle_subscription_action = () => {
-    if (!userData)
-      return (
-        <Link
-          className={buttonVariants({
-            size: "lg",
-            width: "lg",
-            variant: "default",
-          })}
-          href={"/sign-in"}
-        >
-          Sign In
-        </Link>
-      );
-
-    if (pricing.title.toUpperCase() === data?.plan.toUpperCase()) {
-      return (
-        <div className="flex justify-between items-center">
-          <H2 variant={"primary"}> Current Active Plan</H2>
-          {data.cancelAt && (
-            <RestoreSubscriptionButtonMolecule
-              referenceId={userData.id}
-              subscriptionId={data.stripeSubscriptionId}
-              text="Restore"
-            />
-          )}
-        </div>
-      );
-    } else if (pricing.title.toUpperCase() === "FREE") {
-      if (data?.cancelAt) {
-        return (
-          <H2 size={"md"}>
-            This Subscription Will Be Active Starting At:
-            <strong className="text-primary">
-              {" " + new Date(data.cancelAt).toDateString()}
-            </strong>
-          </H2>
-        );
-      } else {
-        return (
-          <BillingPortalButtonMolecule
-            referenceId={userData?.id}
-            returnUrl="/pricing"
-            text={"Cancel subscription"}
-          />
-        );
-      }
-    }
-    return (
-      <PaymentButtonMolecule
-        successUrl={pricing.successUrl!}
-        cancelUrl={pricing.cancelUrl!}
-        plan={pricing.plan!}
-        href={pricing.href}
-        text={pricing.buttonText}
-      />
-    );
-  };
-
   return (
     <Card
       key={pricing.title}
       className={
-        pricing.title.toUpperCase() === data?.plan.toUpperCase()
+        data &&
+        data[pricing.title.toUpperCase()] &&
+        pricing.title.toUpperCase() ===
+          data[pricing.title.toUpperCase()].plan.toUpperCase()
           ? "bg-gray-800"
           : ""
       }
@@ -114,7 +54,14 @@ const PricingCard = ({
         <CardDescription>{pricing.description}</CardDescription>
       </CardHeader>
 
-      <CardContent> {handle_subscription_action()}</CardContent>
+      <CardContent>
+        {" "}
+        <PortalBaseSubscriptionAction
+          data={data}
+          pricing={pricing}
+          userData={userData}
+        />{" "}
+      </CardContent>
 
       <hr className="w-4/5 mx-auto mb-4" />
 

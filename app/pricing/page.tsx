@@ -1,4 +1,4 @@
-import { TripPlannerPricing } from "@/components/ui/organisms/tripPlanner/TripPlannerPricing.organism";
+import { TripPlannerPricing } from "@/components/ui/actions/subscription/trip-planner/TripPlannerPricing.action";
 
 const page = () => {
   return <TripPlannerPricing />;

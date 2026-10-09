@@ -4,18 +4,21 @@ import { Loader2Icon } from "lucide-react";
 
 import { P } from "@/components/ui/atoms/text/Text";
 import PricingCard from "../pricing/Pricing.card";
-import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
+import {
+  Dictionary,
+  PricingCardProps,
+  SubscriptionDataType,
+} from "@/types/pricing.types";
 import { User } from "better-auth";
 
 interface Props {
   error: Error | null;
   isPending: boolean;
   isLoadingUserData: boolean;
-  userData: User;
+  userData: User | undefined;
   pricingList: PricingCardProps[];
-  data: SubscriptionDataType;
+  data: Dictionary<SubscriptionDataType> | undefined | null;
 }
-
 export const PricingGridOrganism = ({
   error,
   isPending,
@@ -41,7 +44,7 @@ export const PricingGridOrganism = ({
     );
   }
 
-  if (isPending || isLoadingUserData) {
+  if ((!data && userData) || isLoadingUserData || isPending) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center gap-4">
