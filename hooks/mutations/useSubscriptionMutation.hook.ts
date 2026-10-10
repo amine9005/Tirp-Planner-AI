@@ -7,6 +7,7 @@ interface props {
   successUrl: string;
   cancelUrl: string;
   returnUrl?: string;
+  subscriptionId?: string | null;
 }
 
 export const useUpdateSubscriptionMutationHook = () => {
@@ -16,6 +17,7 @@ export const useUpdateSubscriptionMutationHook = () => {
     successUrl,
     cancelUrl,
     returnUrl,
+    subscriptionId,
   }: props) => {
     // console.log("subscription details", plan, successUrl, cancelUrl, returnUrl);
 
@@ -24,6 +26,7 @@ export const useUpdateSubscriptionMutationHook = () => {
       successUrl,
       cancelUrl,
       returnUrl,
+      subscriptionId,
     });
     return response;
   };

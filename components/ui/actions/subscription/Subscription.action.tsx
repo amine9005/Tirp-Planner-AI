@@ -7,7 +7,6 @@ import PaymentButtonMolecule from "@/components/ui/molecules/payment-button/Paym
 import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
 import { User } from "better-auth";
 
-// TODO Condition management if user both sub1 and cancel and sub2 and canceled
 const SubscriptionAction = ({
   pricing,
   userData,
@@ -38,7 +37,7 @@ const SubscriptionAction = ({
         {data.cancelAt && (
           <RestoreSubscriptionButtonMolecule
             referenceId={userData.id}
-            subscriptionId={data.stripeSubscriptionId}
+            subscriptionId={data.stripeSubscriptionId!}
             text="Restore"
           />
         )}
@@ -68,6 +67,8 @@ const SubscriptionAction = ({
     <PaymentButtonMolecule
       successUrl={pricing.successUrl!}
       cancelUrl={pricing.cancelUrl!}
+      returnUrl={pricing.returnUrl!}
+      subscriptionId={data && data.stripeSubscriptionId!}
       plan={pricing.plan!}
       href={pricing.href}
       text={pricing.buttonText}

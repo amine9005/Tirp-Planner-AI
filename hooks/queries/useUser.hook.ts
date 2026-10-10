@@ -62,32 +62,16 @@ export const useUserQuery = () => {
 // };
 
 export const useGetSubscriptionQuery = (id: string | undefined) => {
-  const getSubscription = async () => {
+  const getSubscription = async (): Promise<SubscriptionDataType | null> => {
     if (!id) return null;
     const resp = await axiosInstance.get("api/subscriptions/" + id);
-
-    const data: Dictionary<SubscriptionDataType> = {};
-
-    // console.log("resp ", resp);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resp.data.subscription.map((sub: any) => {
-      data[(sub.plan as string).toUpperCase()] = {
-        plan: sub.plan,
-        status: sub.status,
-        stripeSubscriptionId: sub.stripeSubscriptionId,
-        cancelAt: sub.cancelAt,
-        cancelAtPeriodEnd: sub.cancelAtPeriodEnd,
-        canceledAt: sub.cancelAt,
-        periodEnd: sub.periodEnd,
-        periodStart: sub.periodStart,
-      };
-    });
-    return data;
+    console.log("response from server ", resp);
+    return resp.data.result;
   };
 
   return useQuery({
     queryFn: getSubscription,
     queryKey: ["subscription"],
-    staleTime: 5,
+    staleTime: 15,
   });
 };

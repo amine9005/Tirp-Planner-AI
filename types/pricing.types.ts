@@ -1,3 +1,5 @@
+import { Subscription } from "@better-auth/stripe";
+
 export enum PopularPlanType {
   NO = 0,
   YES = 1,
@@ -14,28 +16,16 @@ export interface PricingCardProps {
   plan: string;
   successUrl?: string;
   cancelUrl?: string;
+  returnUrl?: string;
   redirectUrl?: string;
   paymentLink?: string;
   billing: string;
 }
 
-export interface SubscriptionDataType {
-  plan: string;
-  stripeSubscriptionId: string;
-  status:
-    | "active"
-    | "canceled"
-    | "incomplete"
-    | "incomplete_expired"
-    | "past_due"
-    | "paused"
-    | "trialing"
-    | "unpaid";
-  periodStart?: Date | undefined;
-  periodEnd?: Date | undefined;
-  cancelAtPeriodEnd?: boolean | undefined;
-  cancelAt?: Date | undefined;
-  canceledAt?: Date | undefined;
+export interface SubscriptionDataType extends Subscription {
+  limits: {
+    limit: number;
+  };
 }
 
 export interface Dictionary<T> {

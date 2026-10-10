@@ -84,7 +84,7 @@ export const auth = betterAuth({
             priceId: "price_1UMaarCLEGaxLDrwLtOiHjsX",
             annualDiscountPriceId: "price_1UMafRCLEGaxLDrwbLp0VLOp", // (optional) the price ID for annual billing with a discount
             limits: {
-              limit: Infinity,
+              limit: 200,
             },
           },
         ],

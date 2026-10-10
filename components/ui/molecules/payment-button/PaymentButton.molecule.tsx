@@ -10,6 +10,7 @@ interface Props {
   successUrl: string;
   cancelUrl: string;
   returnUrl?: string;
+  subscriptionId?: string | null;
   text?: string;
   href: string;
 }
@@ -18,6 +19,7 @@ const PaymentButtonMolecule = ({
   plan,
   successUrl,
   returnUrl,
+  subscriptionId,
   text,
   href,
 }: Props) => {
@@ -39,6 +41,7 @@ const PaymentButtonMolecule = ({
     successUrl,
     cancelUrl,
     returnUrl,
+    subscriptionId,
     href,
   }: Props) => {
     if (user) {
@@ -49,6 +52,7 @@ const PaymentButtonMolecule = ({
         successUrl,
         cancelUrl,
         returnUrl,
+        subscriptionId,
       });
       seLoading(false);
       redirect(resp.data.data.url);
@@ -63,7 +67,14 @@ const PaymentButtonMolecule = ({
   return (
     <Button
       onClick={() =>
-        handle_click({ plan, successUrl, cancelUrl, returnUrl, href })
+        handle_click({
+          plan,
+          successUrl,
+          cancelUrl,
+          returnUrl,
+          href,
+          subscriptionId,
+        })
       }
       disabled={loading}
     >

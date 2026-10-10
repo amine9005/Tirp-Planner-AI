@@ -4,11 +4,7 @@ import { Loader2Icon } from "lucide-react";
 
 import { P } from "@/components/ui/atoms/text/Text";
 import PricingCard from "../pricing/Pricing.card";
-import {
-  Dictionary,
-  PricingCardProps,
-  SubscriptionDataType,
-} from "@/types/pricing.types";
+import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
 import { User } from "better-auth";
 
 interface Props {
@@ -17,7 +13,7 @@ interface Props {
   isLoadingUserData: boolean;
   userData: User | undefined;
   pricingList: PricingCardProps[];
-  data: Dictionary<SubscriptionDataType> | undefined | null;
+  data: SubscriptionDataType | undefined | null;
 }
 export const PricingGridOrganism = ({
   error,

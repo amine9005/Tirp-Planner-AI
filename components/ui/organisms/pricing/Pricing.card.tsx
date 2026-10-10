@@ -23,16 +23,13 @@ const PricingCard = ({
 }: {
   pricing: PricingCardProps;
   userData: User | undefined;
-  data: Dictionary<SubscriptionDataType> | null | undefined;
+  data: SubscriptionDataType | null | undefined;
 }) => {
   return (
     <Card
       key={pricing.title}
       className={
-        data &&
-        data[pricing.title.toUpperCase()] &&
-        pricing.title.toUpperCase() ===
-          data[pricing.title.toUpperCase()].plan.toUpperCase()
+        data && pricing.title.toUpperCase() === data.plan.toUpperCase()
           ? "bg-gray-800"
           : ""
       }

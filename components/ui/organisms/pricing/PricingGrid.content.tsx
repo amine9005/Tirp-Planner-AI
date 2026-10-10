@@ -1,8 +1,4 @@
-import {
-  Dictionary,
-  PricingCardProps,
-  SubscriptionDataType,
-} from "@/types/pricing.types";
+import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
 import { User } from "better-auth";
 import { PricingGridOrganism } from "./PricingGrid.organism";
 import { PricingListData } from "@/constants/trip-planner/TripPlanner.constants";
@@ -13,7 +9,7 @@ interface Props {
   isLoadingUserData: boolean;
   userData: User | undefined;
   pricingList: PricingCardProps[];
-  data: Dictionary<SubscriptionDataType> | undefined | null;
+  data: SubscriptionDataType | undefined | null;
 }
 
 const PricingGridContent = ({

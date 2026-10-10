@@ -2,11 +2,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/atoms/button/button.variants";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import BillingPortalButtonMolecule from "@/components/ui/molecules/billing-portal-button/BillingPortalButton.molecule";
-import {
-  Dictionary,
-  PricingCardProps,
-  SubscriptionDataType,
-} from "@/types/pricing.types";
+import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
 import { User } from "better-auth";
 
 const PortalBaseSubscriptionAction = ({
@@ -16,7 +12,7 @@ const PortalBaseSubscriptionAction = ({
 }: {
   pricing: PricingCardProps;
   userData: User | undefined;
-  data: Dictionary<SubscriptionDataType> | null | undefined;
+  data: SubscriptionDataType | null | undefined;
 }) => {
   if (!userData || !data)
     return (
@@ -34,9 +30,7 @@ const PortalBaseSubscriptionAction = ({
 
   if (
     data &&
-    data[pricing.title.toUpperCase()] &&
-    pricing.title.toUpperCase() ===
-      data[pricing.title.toUpperCase()].plan.toUpperCase()
+    pricing.title.toUpperCase() === data.plan.toUpperCase()
     // pricing.title.toLocaleUpperCase() !== "FREE"
   ) {
     return (

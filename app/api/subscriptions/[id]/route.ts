@@ -21,10 +21,14 @@ export async function GET(
       headers: await headers(),
     });
 
+    const activeSubscription = subscriptions.find(
+      (sub) => sub.status === "active" || sub.status === "trialing",
+    );
+
     return NextResponse.json(
       {
         message: "Subscription Retrieved Successfully",
-        subscription: subscriptions,
+        result: activeSubscription,
       },
       {
         status: 200,

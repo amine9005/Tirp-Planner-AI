@@ -31,13 +31,13 @@ export function useAiSendMessageHook() {
       isLoadingUserData ||
       isLoadingSubscription ||
       !userData ||
-      !subscriptionData?.plan
+      !subscriptionData
     )
       return;
 
     console.log("User limit: ", subscriptionData);
     if (subscriptionData.plan === "free") {
-      if ((userData.user.limit as number) <= 0) {
+      if (subscriptionData.limits.limit <= 0) {
         toast.error("You have reached your limit! Please upgrade your plan.");
         console.log("user limit reached");
         return;
