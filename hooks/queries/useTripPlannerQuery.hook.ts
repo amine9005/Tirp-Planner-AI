@@ -21,6 +21,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useUnsplashImagesQuery } from "./useUnsplashImagesQuery.hook";
+import axiosInstance from "@/lib/axios";
 
 export function useGetRandomPlaceHolderImageQuery(placeName: string) {
   const { mutateAsync: getImageFn } = useUnsplashImagesQuery();
@@ -44,3 +45,19 @@ export function useGetRandomPlaceHolderImageQuery(placeName: string) {
     staleTime: Infinity,
   });
 }
+
+// Custom hook to fetch trips using React Query
+export const useTripsQuery = (userId: string | undefined) => {
+  // Define the API endpoint for fetching the trips
+  const fetchTrips = async () => {
+    const response = await axiosInstance.get(
+      "/api/trip-planner/trips/" + userId,
+    );
+    return response.data.trips;
+  };
+  return useQuery({
+    queryFn: fetchTrips,
+    queryKey: ["trips"],
+    staleTime: Infinity,
+  });
+};

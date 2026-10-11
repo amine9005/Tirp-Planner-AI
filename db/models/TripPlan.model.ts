@@ -3,6 +3,7 @@ import HotelModel from "./Hotel.model";
 import ItineraryModel from "./Itinerary.model";
 const tripPlanSchema = new mongoose.Schema(
   {
+    userId: { type: String, required: true },
     destination: { type: String, required: true },
     duration: { type: String, required: true },
     origin: { type: String, required: true },
