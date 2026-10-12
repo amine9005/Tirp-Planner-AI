@@ -1,6 +1,6 @@
 import { getSession } from "@/helpers/authHelper.helper";
 import axiosInstance from "@/lib/axios";
-import { Dictionary, SubscriptionDataType } from "@/types/pricing.types";
+import { SubscriptionDataType } from "@/types/pricing.types";
 import { useQuery } from "@tanstack/react-query";
 // import { useEffect, useState } from "react";
 
@@ -65,8 +65,8 @@ export const useGetSubscriptionQuery = (id: string | undefined) => {
   const getSubscription = async (): Promise<SubscriptionDataType | null> => {
     if (!id) return null;
     const resp = await axiosInstance.get("api/subscriptions/" + id);
-    console.log("response from server ", resp);
-    return resp.data.result;
+    // console.log("response from server ", resp);
+    return resp.data.result ? resp.data.result : null;
   };
 
   return useQuery({

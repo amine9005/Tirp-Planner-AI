@@ -30,14 +30,13 @@ export function useAiSendMessageHook() {
       isFinal ||
       isLoadingUserData ||
       isLoadingSubscription ||
-      !userData ||
-      !subscriptionData
+      !userData
     )
       return;
 
     console.log("User limit: ", subscriptionData);
-    if (subscriptionData.plan === "free") {
-      if (subscriptionData.limits.limit <= 0) {
+    if (!subscriptionData) {
+      if (userData.user.limit <= 0) {
         toast.error("You have reached your limit! Please upgrade your plan.");
         console.log("user limit reached");
         return;
@@ -73,7 +72,7 @@ export function useAiSendMessageHook() {
 
       setIsFinal(aiMsg.ui === "Final");
 
-      if (aiMsg.ui === "Final" && subscriptionData.plan === "free") {
+      if (aiMsg.ui === "Final" && !subscriptionData) {
         await updateUserData({
           userId: userData.user.id,
           limit: (userData.user.limit as number) - 1,

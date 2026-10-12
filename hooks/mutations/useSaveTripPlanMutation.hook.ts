@@ -6,6 +6,7 @@ import { TripPlan } from "@/db/models/TripPlan.model";
 export const useSaveTripPlanMutation = () => {
   const queryClient = useQueryClient();
   const saveTripPlanMutationFn = async ({
+    userId,
     destination,
     duration,
     origin,
@@ -17,6 +18,7 @@ export const useSaveTripPlanMutation = () => {
     itinerary,
   }: TripPlan) => {
     const response = await axiosInstance.post("api/trip-planner/save", {
+      userId,
       destination,
       duration,
       origin,

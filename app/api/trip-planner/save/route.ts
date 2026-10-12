@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const {
+      userId,
       destination,
       duration,
       origin,
@@ -66,6 +67,7 @@ export async function POST(req: NextRequest) {
     );
 
     const tripPlan = await TripPlanModel.create({
+      userId,
       destination,
       duration,
       origin,
@@ -76,6 +78,8 @@ export async function POST(req: NextRequest) {
       hotels: hotelsDoc,
       itinerary: itinerariesDoc,
     });
+
+    console.log("Trip Plan: ", tripPlan);
 
     return NextResponse.json(
       {

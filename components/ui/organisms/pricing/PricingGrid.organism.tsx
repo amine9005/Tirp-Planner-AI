@@ -23,11 +23,10 @@ export const PricingGridOrganism = ({
   pricingList,
   data,
 }: Props) => {
-  // console.log(
-  //   "data ",
-  //   JSON.stringify(data) + " isPending " + isPending + " error " + error,
-  //   " status " + status,
-  // );
+  console.log(
+    "data is ",
+    JSON.stringify(data) + " isPending " + isPending + " error " + error,
+  );
 
   if (error) {
     console.log("userDataError  ", error);
@@ -40,7 +39,7 @@ export const PricingGridOrganism = ({
     );
   }
 
-  if ((!data && userData) || isLoadingUserData || isPending) {
+  if ((userData && data === undefined) || isLoadingUserData || isPending) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center gap-4">

@@ -45,7 +45,7 @@ export const auth = betterAuth({
     additionalFields: {
       limit: {
         type: "number",
-        required: false,
+        required: true,
         defaultValue: 10,
         input: false, // allow user to set role - false with hide this field,
       },

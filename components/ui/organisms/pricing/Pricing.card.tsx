@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/atoms/card/card";
 import {
-  Dictionary,
   PopularPlanType,
   PricingCardProps,
   SubscriptionDataType,
@@ -29,9 +28,13 @@ const PricingCard = ({
     <Card
       key={pricing.title}
       className={
-        data && pricing.title.toUpperCase() === data.plan.toUpperCase()
-          ? "bg-gray-800"
-          : ""
+        data
+          ? pricing.title.toUpperCase() === data.plan.toUpperCase()
+            ? "bg-gray-800"
+            : ""
+          : pricing.title.toUpperCase() === "FREE"
+            ? "bg-gray-800"
+            : ""
       }
     >
       <CardHeader>

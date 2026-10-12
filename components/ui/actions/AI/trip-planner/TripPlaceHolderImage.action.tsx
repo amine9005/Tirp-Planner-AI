@@ -30,7 +30,7 @@ const TripPlaceHolderImageAction = () => {
         <div className="relative">
           <Image
             src={"/Nature-Image.jpg"}
-            alt=""
+            alt="/Nature-Image.jpg"
             width={1080}
             height={720}
             className="rounded-2xl object-cover w-3xl h-2/3 border-none"

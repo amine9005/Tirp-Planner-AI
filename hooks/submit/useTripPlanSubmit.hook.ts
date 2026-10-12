@@ -5,6 +5,7 @@ import { aiResponseToJSON } from "@/helpers/AiUtils.helper";
 import { useAiSendMessageHook } from "./useAiSendMessageSubmit.hook";
 import { useAI_Mutation } from "@/hooks/mutations/useAI-ModelMutation.hook";
 import { MessageAISchemaType } from "@/validations/AI.zod";
+import { useUserQuery } from "../queries/useUser.hook";
 
 export function useTripPlanHook() {
   const { mutateAsync: saveTripPlaMt } = useSaveTripPlanMutation();
@@ -14,6 +15,8 @@ export function useTripPlanHook() {
   const isLoading = useAIMessagesStore((state) => state.isLoading);
   const setIsLoading = useAIMessagesStore((state) => state.setIsLoading);
 
+  const { data } = useUserQuery();
+
   const { messages, isFinal } = useAiSendMessageHook();
 
   const setTripPlan = useAIMessagesStore((state) => state.setTripPlan);
@@ -21,6 +24,13 @@ export function useTripPlanHook() {
 
   const saveTripPlan = async (tripPlan: TripPlan) => {
     try {
+      if (!data) {
+        console.log("no user data");
+        return;
+      }
+
+      tripPlan.userId = data.user.id;
+
       const resp = await saveTripPlaMt(tripPlan);
 
       // console.log("save trip ", resp);
