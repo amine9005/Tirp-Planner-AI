@@ -8,7 +8,12 @@ const AllTripsAction = () => {
   const { data: userData, isPending: isLoadingUserData } = useUserQuery();
   const { error, data, isPending } = useTripsQuery(userData?.user.id);
 
-  console.log("data ", data + " isPending " + isPending + " error " + error);
+  console.log(
+    "data ",
+    JSON.stringify(data) + " isPending " + isPending + " error " + error,
+    "userId ",
+    userData?.user.id,
+  );
 
   if (error) {
     console.log("userDataError  ", error);

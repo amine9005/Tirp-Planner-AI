@@ -47,17 +47,17 @@ export function useGetRandomPlaceHolderImageQuery(placeName: string) {
 }
 
 // Custom hook to fetch trips using React Query
-export const useTripsQuery = (userId: string | undefined) => {
+export const useTripsQuery = (id: string | undefined) => {
   // Define the API endpoint for fetching the trips
+  // console.log("id ", id);
   const fetchTrips = async () => {
-    const response = await axiosInstance.get(
-      "/api/trip-planner/trips/" + userId,
-    );
+    if (!id) return null; // Return an empty array if no id is provided
+    const response = await axiosInstance.get("/api/trip-planner/trips/" + id);
     return response.data.trips;
   };
   return useQuery({
     queryFn: fetchTrips,
     queryKey: ["trips"],
-    staleTime: Infinity,
+    staleTime: 60,
   });
 };

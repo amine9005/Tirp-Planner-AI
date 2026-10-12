@@ -6,18 +6,19 @@ await getClient();
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ userId: string }> },
+  { params }: { params: Promise<{ id: string }> },
 ) {
-  const userId = (await params).userId;
+  const id = (await params).id;
+
+  console.log("getting trips id ", id);
   try {
     // console.log("title ", title, "description: ", description);
-    console.log("getting Trips ");
 
-    const trips = await TripPlanModel.find({ userId })
+    const trips = await TripPlanModel.find({ userId: id })
       .populate("hotels")
       .populate("itinerary");
 
-    console.log("trips ", trips);
+    // console.log("trips ", trips);
 
     return NextResponse.json(
       { message: "Trips Retrieved Successfully", trips: trips },
