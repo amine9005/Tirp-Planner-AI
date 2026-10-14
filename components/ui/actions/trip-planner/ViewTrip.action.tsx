@@ -1,18 +1,27 @@
 "use client";
+import { useGetTripByIdQuery } from "@/hooks/queries/useTripPlannerQuery.hook";
 import { useUserQuery } from "@/hooks/queries/useUser.hook";
-import { P } from "@/components/ui/atoms/text/Text";
 import { Loader2Icon } from "lucide-react";
-import { useTripsQuery } from "@/hooks/queries/useTripPlannerQuery.hook";
+import { P } from "@/components/ui/atoms/text/Text";
+import TripPlannerTimelineOrganism from "../../organisms/timeline/trip planner/TripPlannerTimeline.organism";
+import { useParams } from "next/navigation";
 
-const AllTripsAction = () => {
+const ViewTripAction = () => {
   const { data: userData, isPending: isLoadingUserData } = useUserQuery();
-  const { error, data, isPending } = useTripsQuery(userData?.user.id);
+  const params = useParams<{ id: string }>();
+  // console.log("params ", params);
+
+  const { error, data, isPending } = useGetTripByIdQuery(params?.id);
 
   console.log(
     "data ",
-    JSON.stringify(data) + " isPending " + isPending + " error " + error,
-    "userId ",
-    userData?.user.id,
+    JSON.stringify(data),
+    " error ",
+    error,
+    "isLoadingUserData ",
+    isLoadingUserData,
+    " is Pending ",
+    isPending,
   );
 
   if (error) {
@@ -37,7 +46,13 @@ const AllTripsAction = () => {
     );
   }
 
-  return <div> Welcome Your Trips are</div>;
+  if (!data) return <></>;
+
+  return (
+    <div className="flex justify-center items-center mt-5 mx-auto ">
+      <TripPlannerTimelineOrganism tripPlan={data!} />
+    </div>
+  );
 };
 
-export default AllTripsAction;
+export default ViewTripAction;

@@ -10,16 +10,15 @@ export async function GET(
 ) {
   const id = (await params).id;
 
-  console.log("getting trips id ", id);
+  // console.log("getting trips id ", id);
   try {
     // console.log("title ", title, "description: ", description);
 
     const trips = await TripPlanModel.find({ userId: id })
       .populate("hotels")
-      .populate("itinerary");
+      .populate({ path: "itinerary", populate: { path: "activities" } });
 
     // console.log("trips ", trips);
-
     return NextResponse.json(
       { message: "Trips Retrieved Successfully", trips: trips },
       {

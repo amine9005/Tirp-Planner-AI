@@ -22,6 +22,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useUnsplashImagesQuery } from "./useUnsplashImagesQuery.hook";
 import axiosInstance from "@/lib/axios";
+import { TripPlanType } from "@/types/create-trip.types";
 
 export function useGetRandomPlaceHolderImageQuery(placeName: string) {
   const { mutateAsync: getImageFn } = useUnsplashImagesQuery();
@@ -50,7 +51,7 @@ export function useGetRandomPlaceHolderImageQuery(placeName: string) {
 export const useTripsQuery = (id: string | undefined) => {
   // Define the API endpoint for fetching the trips
   // console.log("id ", id);
-  const fetchTrips = async () => {
+  const fetchTrips = async (): Promise<TripPlanType[] | null> => {
     if (!id) return null; // Return an empty array if no id is provided
     const response = await axiosInstance.get("/api/trip-planner/trips/" + id);
     return response.data.trips;
@@ -58,6 +59,25 @@ export const useTripsQuery = (id: string | undefined) => {
   return useQuery({
     queryFn: fetchTrips,
     queryKey: ["trips"],
+    staleTime: 60,
+  });
+};
+
+// Custom hook to fetch trips using React Query
+export const useGetTripByIdQuery = (id: string | undefined) => {
+  // Define the API endpoint for fetching the trips
+  // console.log("id ", id);
+  const fetchTrips = async (): Promise<TripPlanType | null> => {
+    console.log("id", id);
+    if (!id) return null; // Return an empty array if no id is provided
+    const response = await axiosInstance.get(
+      "/api/trip-planner/trips/get/" + id,
+    );
+    return response.data.trip;
+  };
+  return useQuery({
+    queryFn: fetchTrips,
+    queryKey: [`trip:` + id],
     staleTime: 60,
   });
 };

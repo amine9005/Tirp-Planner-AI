@@ -1,21 +1,17 @@
-"use client";
 import { Calendar, Users, Wallet } from "lucide-react";
 import { Timeline } from "@/components/ui/organisms/timeline/Timeline.organism";
 
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
 import ItineraryCard from "@/components/ui/organisms/cards/trip-planner/Itinerary.card";
-import HotelCardAction from "./HotelCard.action";
-import { useAIMessagesStore } from "@/store/AI/messages.store";
-import TripPlaceHolderImageAction from "./TripPlaceHolderImage.action";
+import { TripPlanType } from "@/types/create-trip.types";
+import HotelCardAction from "@/components/ui/actions/trip-planner/HotelCard.action";
 
-const TripPlannerAction = () => {
-  const tripPlan = useAIMessagesStore((state) => state.tripPlan);
-
-  if (!tripPlan) {
-    return <TripPlaceHolderImageAction />;
-  }
-
+const TripPlannerTimelineOrganism = ({
+  tripPlan,
+}: {
+  tripPlan: TripPlanType;
+}) => {
   const data = [
     {
       title: "Hotels",
@@ -42,7 +38,7 @@ const TripPlannerAction = () => {
     })),
   ];
   return (
-    <div className="relative h-[85vh] overflow-y-auto w-full col-span-2 gap-2">
+    <div className="relative h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
       <Timeline
         data={data}
         mainTitle={
@@ -74,4 +70,4 @@ const TripPlannerAction = () => {
   );
 };
 
-export default TripPlannerAction;
+export default TripPlannerTimelineOrganism;
