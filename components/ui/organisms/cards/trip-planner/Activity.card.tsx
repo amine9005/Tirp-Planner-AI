@@ -14,7 +14,7 @@ const ActivityCard = ({
   place_image: string;
 }) => {
   return (
-    <div className={"flex flex-col justify-between gap-2 h-120"}>
+    <div className={"flex flex-col justify-between gap-2 h-120 max-h-120"}>
       <Image
         src={place_image ? place_image : "/travel-placeholder.jpg"}
         width={400}

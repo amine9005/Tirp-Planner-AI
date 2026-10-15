@@ -37,7 +37,7 @@ export default async function RootLayout({
   // };
 
   return (
-    <div className="mx-8">
+    <div className="mx-4 md:mx-8">
       <SkeletonTheme baseColor="#202020" highlightColor="#444">
         <TanStackProvider>
           <Navbar2Organism />

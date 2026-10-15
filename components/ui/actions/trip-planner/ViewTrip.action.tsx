@@ -49,7 +49,7 @@ const ViewTripAction = () => {
   if (!data) return <></>;
 
   return (
-    <div className="flex justify-center items-center mt-5 mx-auto ">
+    <div className="flex justify-center items-center mt-5  ">
       <TripPlannerTimelineOrganism tripPlan={data!} />
     </div>
   );

@@ -16,7 +16,10 @@ const HotelCard = ({
   imageSrc?: string;
 }) => {
   return (
-    <div key={idx} className="flex flex-col gap-1">
+    <div
+      key={idx}
+      className="flex flex-col justify-between gap-1 h-120 max-h-120"
+    >
       <Image
         src={imageSrc ? imageSrc : "/hotel-building-concept.jpg"}
         width={400}

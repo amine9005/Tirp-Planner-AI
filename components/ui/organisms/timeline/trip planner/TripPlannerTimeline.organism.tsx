@@ -3,7 +3,7 @@ import { Timeline } from "@/components/ui/organisms/timeline/Timeline.organism";
 
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
-import ItineraryCard from "@/components/ui/organisms/cards/trip-planner/Itinerary.card";
+import ItineraryCard from "@/components/ui/actions/trip-planner/Itinerary.display";
 import { TripPlanType } from "@/types/create-trip.types";
 import HotelCardAction from "@/components/ui/actions/trip-planner/HotelCard.action";
 
@@ -16,7 +16,7 @@ const TripPlannerTimelineOrganism = ({
     {
       title: "Hotels",
       content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
           {tripPlan?.hotels.map((hotel, idx) => {
             return (
               <BlurFade
