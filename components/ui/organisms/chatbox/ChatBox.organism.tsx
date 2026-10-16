@@ -20,7 +20,7 @@ const ChatBoxOrganism = ({
   return (
     <div className="flex flex-col h-[85vh] ">
       {/* Display Messages */}
-      <section className="flex-1 overflow-y-auto p-4 ">
+      <section className="flex-1 overflow-y-auto p-4">
         <DisplayMessagesMolecule
           isFinal={isFinal}
           isLoading={isLoading}

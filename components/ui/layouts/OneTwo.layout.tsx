@@ -7,7 +7,7 @@ interface Props {
 
 const OneTwoLayout = ({ left, right }: Props) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:p-10">
       {left}
       {right}
     </div>

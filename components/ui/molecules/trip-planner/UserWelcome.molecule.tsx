@@ -4,13 +4,14 @@ import SuggestionsAction from "../../actions/trip-planner/Suggestions.action";
 
 const UserWelcomeMolecule = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <H2 size={"xl"}>
+    <div className="flex flex-col items-center justify-center mt-5">
+      <H2 size={"xl"} className="text-center">
         {" "}
         Start Planing Your
-        <strong className="text-primary"> Trip</strong> Using AI
+        <strong className="text-primary"> Trip</strong> Using{" "}
+        <strong className="text-primary"> AI</strong>
       </H2>
-      <P size={"sm"} className="mt-2 text-center" variant={"muted"}>
+      <P size={"sm"} className="mt-2 text-center mb-4" variant={"muted"}>
         Discover personalized travel itineraries, find the best travel
         destinations and experiences with AI-assisted travel planner. Plan your
         trip with ease and comfort, without worrying about the details. Start

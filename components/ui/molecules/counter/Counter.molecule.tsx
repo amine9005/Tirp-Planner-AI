@@ -23,7 +23,7 @@ function CounterMolecule({ title, alias, count, setCount }: Props) {
           <MinusIcon className="size-6 text-white" />
         </Button>
 
-        <span className="text-2xl font-bold">
+        <span className="text-2xl font-bold  text-center">
           {count} {alias}
         </span>
 

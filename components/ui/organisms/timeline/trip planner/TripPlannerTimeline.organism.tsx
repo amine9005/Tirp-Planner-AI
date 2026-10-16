@@ -38,11 +38,11 @@ const TripPlannerTimelineOrganism = ({
     })),
   ];
   return (
-    <div className="relative h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
+    <div className="relative mx-3 h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
       <Timeline
         data={data}
         mainTitle={
-          <H2 size={"xl"}>
+          <H2 className="justify-center items-center text-center" size={"xl"}>
             Your Trip Itinerary From{" "}
             <strong className="text-primary">{tripPlan?.origin}</strong> To{" "}
             <strong className="text-primary">{tripPlan?.destination}</strong> Is
