@@ -67,6 +67,19 @@ const Navbar2Organism = () => {
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
+            {user && (
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className="hover:bg-transparent ">
+                  <Link
+                    rel="noreferrer noopener"
+                    href={"/trips"}
+                    className="text-[17px] hover:scale-105 transition-transform duration-200 hover:text-primary"
+                  >
+                    My Trips
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
           <MenuButtonMolecule isOpen={isOpen} setIsOpen={setIsOpen} />
           <div className="hidden md:flex w-full justify-end">
@@ -122,6 +135,19 @@ const Navbar2Organism = () => {
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+            {user && (
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild className="hover:bg-transparent ">
+                  <Link
+                    rel="noreferrer noopener"
+                    href={"/trips"}
+                    className="text-[17px] hover:scale-105 transition-transform duration-200 hover:text-primary"
+                  >
+                    My Trips
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
         </motion.div>
       </NavigationMenu>

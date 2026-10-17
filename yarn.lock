@@ -10448,6 +10448,11 @@ make-dir@^4.0.0:
   dependencies:
     semver "^7.5.3"
 
+mapbox-gl@^3.33.0:
+  version "3.33.0"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-3.33.0.tgz#1b38dd38b6d371d037469598e3089a27e61b88bd"
+  integrity sha512-2HpIrVedccHedolZyMVG/7FXdpgmsLTENgEDsX71x3/gKDGfYMf1FCRY0prntknkn/JXcraUKXlBTv7vkr0EXg==
+
 marked@^15.0.12:
   version "15.0.12"
   resolved "https://registry.yarnpkg.com/marked/-/marked-15.0.12.tgz#30722c7346e12d0a2d0207ab9b0c4f0102d86c4e"

@@ -7,7 +7,7 @@ import {
   SelectTravelList,
 } from "@/components/ui/display/text-suggestions/trip-planner.display";
 import { useAiSendMessageHook } from "@/hooks/submit/useAiSendMessageSubmit.hook";
-import SelectDaysAction from "@/components/ui/actions/forms/select-days/SelectDays.organism";
+import SelectDaysAction from "@/components/ui/molecules/select-days/SelectDays.molecule";
 import FinalTripAction from "@/components/ui/actions/trip-planner/FinalTrip.action";
 
 const DisplaySelectUIAction = ({ ui }: ChatProgressUI): JSX.Element => {
