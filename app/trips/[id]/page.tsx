@@ -1,7 +1,8 @@
 import ViewTripAction from "@/components/ui/actions/trip-planner/ViewTrip.action";
-import React from "react";
+import { authIsRequired } from "@/helpers/authHelper.helper";
 
-const page = () => {
+const page = async () => {
+  await authIsRequired();
   return <ViewTripAction />;
 };
 
