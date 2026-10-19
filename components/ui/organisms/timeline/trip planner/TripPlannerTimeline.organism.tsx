@@ -38,7 +38,7 @@ const TripPlannerTimelineOrganism = ({
     })),
   ];
   return (
-    <div className="relative mx-3 h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
+    <div className="relative  md:mx-3 h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
       <Timeline
         data={data}
         mainTitle={

@@ -5,6 +5,8 @@ import { Loader2Icon } from "lucide-react";
 import { useTripsQuery } from "@/hooks/queries/useTripPlannerQuery.hook";
 import TripCard from "@/components/ui/organisms/cards/trip-planner/Trip.card";
 import { BlurFade } from "@/components/ui/Effects/blur-fade";
+import { H2 } from "@/components/ui/atoms/heading/heading2";
+import GetStartedButtonMolecule from "@/components/ui/molecules/get-started-button/GetStartedButton.molecule";
 
 const AllTripsAction = () => {
   const { data: userData, isPending: isLoadingUserData } = useUserQuery();
@@ -35,6 +37,15 @@ const AllTripsAction = () => {
           <Loader2Icon className="animate-spin size-10" />
           <P>Loading...</P>
         </div>
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="justify-center flex-col flex items-center w-full h-[85vh] gap-5">
+        <H2>Looks Like You Have No Trips!</H2>
+        <GetStartedButtonMolecule />
       </div>
     );
   }

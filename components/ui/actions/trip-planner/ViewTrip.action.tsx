@@ -1,15 +1,78 @@
 "use client";
 import { useGetTripByIdQuery } from "@/hooks/queries/useTripPlannerQuery.hook";
 import { useUserQuery } from "@/hooks/queries/useUser.hook";
-import { Loader2Icon } from "lucide-react";
+import { ListChecks, Loader2Icon, MapIcon } from "lucide-react";
 import { P } from "@/components/ui/atoms/text/Text";
-import TripPlannerTimelineOrganism from "../../organisms/timeline/trip planner/TripPlannerTimeline.organism";
+import TripPlannerTimelineOrganism from "@/components/ui/organisms/timeline/trip planner/TripPlannerTimeline.organism";
 import { useParams } from "next/navigation";
+import { H2 } from "@/components/ui/atoms/heading/heading2";
+import GlobalMapOrganism from "@/components/ui/organisms/map/GlobalMap.organism";
+import { useEffect, useState } from "react";
+import SelectPageMolecule from "../../molecules/select-page/SelectPage.molecule";
 
 const ViewTripAction = () => {
   const { data: userData, isPending: isLoadingUserData } = useUserQuery();
   const params = useParams<{ id: string }>();
   // console.log("params ", params);
+
+  const [smallScreen, setSmallScreen] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const switch_page_mobile = () => {
+    switch (activeIndex) {
+      case 0:
+        return (
+          <div className="overflow-y-scroll">
+            <TripPlannerTimelineOrganism tripPlan={data!} />
+          </div>
+        );
+      case 1:
+        return <GlobalMapOrganism />;
+      default:
+    }
+  };
+
+  const page_name_by_index = () => {
+    switch (activeIndex) {
+      case 0:
+        return (
+          <div className="flex flex-row items-center gap-4">
+            {" "}
+            <ListChecks /> Itinerary{" "}
+          </div>
+        );
+      case 1:
+        return (
+          <div className="flex flex-row items-center gap-4">
+            {" "}
+            <MapIcon /> Map{" "}
+          </div>
+        );
+      default:
+        return (
+          <div className="flex flex-row items-center gap-4">
+            {" "}
+            <ListChecks /> Itinerary{" "}
+          </div>
+        );
+    }
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      // console.log("window size: ", window.innerWidth);
+
+      if (window.innerWidth > 600) {
+        setSmallScreen(false);
+      } else {
+        setSmallScreen(true);
+        setActiveIndex(0);
+      }
+      setLoading(false);
+    };
+    handleResize();
+  }, []);
 
   const { error, data, isPending } = useGetTripByIdQuery(params?.id);
 
@@ -35,7 +98,7 @@ const ViewTripAction = () => {
     );
   }
 
-  if ((!data && userData) || isLoadingUserData || isPending) {
+  if ((!data && userData) || isLoadingUserData || isPending || loading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="flex flex-col justify-center items-center gap-4">
@@ -45,12 +108,40 @@ const ViewTripAction = () => {
       </div>
     );
   }
+  if (!data) {
+    return (
+      <div className="justify-center flex-col flex items-center w-full h-[85vh] gap-5">
+        <H2 variant={"error"}>
+          Failed To Load Trip Data! Please Try Again Later.
+        </H2>
+      </div>
+    );
+  }
 
-  if (!data) return <></>;
+  if (smallScreen) {
+    return (
+      <div>
+        <SelectPageMolecule
+          minPage={0}
+          maxPage={1}
+          alias={page_name_by_index()}
+          setCount={setActiveIndex}
+        />
+
+        {switch_page_mobile()}
+      </div>
+    );
+    // Render ChatBoxAction on small screen
+  }
 
   return (
-    <div className="flex justify-center items-center  ">
-      <TripPlannerTimelineOrganism tripPlan={data!} />
+    <div className="grid grid-cols-1 md:grid-cols-5 mt-2 md:mt-8">
+      <div className="col-span-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <TripPlannerTimelineOrganism tripPlan={data!} />
+      </div>
+      <div className="col-span-2 ">
+        <GlobalMapOrganism tripData={data} />
+      </div>
     </div>
   );
 };
