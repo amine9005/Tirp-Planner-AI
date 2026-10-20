@@ -33,7 +33,7 @@ const GlobalMapOrganism = ({ tripData }: Props) => {
             ? data?.itinerary[0].activities[0].geo_coordinates.latitude
             : 42.35816,
         ], // starting position [lng, lat]. Note that lat must be set between -90 and 90
-        zoom: data ? 3 : 0.8, // starting zoom
+        zoom: data ? 6 : 0.8, // starting zoom
         projection: "globe",
       });
 

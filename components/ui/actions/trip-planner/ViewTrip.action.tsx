@@ -8,7 +8,8 @@ import { useParams } from "next/navigation";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import GlobalMapOrganism from "@/components/ui/organisms/map/GlobalMap.organism";
 import { useEffect, useState } from "react";
-import SelectPageMolecule from "../../molecules/select-page/SelectPage.molecule";
+import SelectPageMolecule from "@/components/ui/molecules/select-page/SelectPage.molecule";
+import { useAIMessagesStore } from "@/store/AI/messages.store";
 
 const ViewTripAction = () => {
   const { data: userData, isPending: isLoadingUserData } = useUserQuery();
@@ -17,7 +18,8 @@ const ViewTripAction = () => {
 
   const [smallScreen, setSmallScreen] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndex = useAIMessagesStore((state) => state.switchView);
+  const setActiveIndex = useAIMessagesStore((state) => state.setSwitchView);
 
   const switch_page_mobile = () => {
     switch (activeIndex) {
@@ -126,6 +128,7 @@ const ViewTripAction = () => {
           maxPage={1}
           alias={page_name_by_index()}
           setCount={setActiveIndex}
+          count={activeIndex}
         />
 
         {switch_page_mobile()}

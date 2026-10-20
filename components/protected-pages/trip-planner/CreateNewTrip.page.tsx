@@ -15,14 +15,17 @@ import { P } from "@/components/ui/atoms/text/Text";
 import GlobalMapOrganism from "@/components/ui/organisms/map/GlobalMap.organism";
 import { Button } from "@/components/ui/atoms/button/button";
 import SelectPageMolecule from "@/components/ui/molecules/select-page/SelectPage.molecule";
+import { useAIMessagesStore } from "@/store/AI/messages.store";
 
 const CreateNewTripPage = () => {
   const [smallScreen, setSmallScreen] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(1);
+  // const [activeIndex, setActiveIndex] = useState(1);
+  const activeIndex = useAIMessagesStore((state) => state.switchView);
+  const setActiveIndex = useAIMessagesStore((state) => state.setSwitchView);
 
   const handle_map_switch = () => {
-    console.log("active index: ", activeIndex);
+    // console.log("active index: ", activeIndex);
 
     if (activeIndex === 1) {
       setActiveIndex(2);
@@ -109,6 +112,7 @@ const CreateNewTripPage = () => {
         <SelectPageMolecule
           minPage={0}
           maxPage={2}
+          count={activeIndex}
           alias={page_name_by_index()}
           setCount={setActiveIndex}
         />

@@ -7,19 +7,24 @@ interface Props {
   alias: string | ReactNode;
   maxPage: number;
   minPage: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
+  setCount: (value: number) => void;
+  count: number;
 }
 
-function SelectPageMolecule({ alias, minPage, maxPage, setCount }: Props) {
+function SelectPageMolecule({
+  count,
+  alias,
+  minPage,
+  maxPage,
+  setCount,
+}: Props) {
   return (
     <div className="flex flex-col items-center justify-between   my-2 p-0.5">
       <div className="flex w-full items-center justify-between gap-4  ">
         <Button
           className="rounded-full w-15"
           variant={"outline"}
-          onClick={() =>
-            setCount((prev) => (prev > minPage ? prev - 1 : minPage))
-          }
+          onClick={() => setCount(count > minPage ? count - 1 : minPage)}
         >
           <ArrowLeftToLine className="size-6 text-white" />
         </Button>
@@ -29,9 +34,7 @@ function SelectPageMolecule({ alias, minPage, maxPage, setCount }: Props) {
         <Button
           className="rounded-full w-15"
           variant={"outline"}
-          onClick={() =>
-            setCount((prev) => (prev < maxPage ? prev + 1 : maxPage))
-          }
+          onClick={() => setCount(count < maxPage ? count + 1 : maxPage)}
         >
           <ArrowRightToLine className="size-6 text-white" />
         </Button>

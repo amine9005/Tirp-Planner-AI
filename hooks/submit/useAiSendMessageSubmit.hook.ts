@@ -34,7 +34,7 @@ export function useAiSendMessageHook() {
     )
       return;
 
-    console.log("User limit: ", subscriptionData);
+    // console.log("User limit: ", subscriptionData);
     if (!subscriptionData) {
       if (userData.user.limit <= 0) {
         toast.error("You have reached your limit! Please upgrade your plan.");

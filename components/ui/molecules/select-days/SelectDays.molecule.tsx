@@ -10,7 +10,7 @@ function SelectDaysAction() {
   const { onSend } = useAiSendMessageHook();
 
   return (
-    <div className="flex flex-col items-center mt-2 p-4 border rounded-2xl bg-secondary">
+    <div className="flex flex-col items-center mt-2 p-2 border rounded-2xl bg-secondary">
       <CounterMolecule
         alias="Days"
         count={days}

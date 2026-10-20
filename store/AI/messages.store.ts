@@ -5,6 +5,7 @@ import { create } from "zustand";
 type MessagesState = {
   messages: MessageAISchemaType[];
   tripPlan: TripPlanType | null;
+  switchView: number;
   isLoading: boolean;
   isFinal: boolean;
   success: boolean;
@@ -15,6 +16,7 @@ type MessagesState = {
   setIsFinal: (value: boolean) => void;
   setMessages: (value: MessageAISchemaType[]) => void;
   setUserMessage: (value: string) => void;
+  setSwitchView: (value: number) => void;
 };
 
 export const useAIMessagesStore = create<MessagesState>((set) => ({
@@ -24,10 +26,12 @@ export const useAIMessagesStore = create<MessagesState>((set) => ({
   isFinal: false,
   success: false,
   userMessage: "",
+  switchView: 1,
   setTripPlan: (value) => set({ tripPlan: value }),
   setSuccess: (value) => set({ success: value }),
   setUserMessage: (value) => set({ userMessage: value }),
   setIsLoading: (value) => set({ isLoading: value }),
   setIsFinal: (value) => set({ isFinal: value }),
   setMessages: (value) => set({ messages: value }),
+  setSwitchView: (value) => set({ switchView: value }),
 }));
