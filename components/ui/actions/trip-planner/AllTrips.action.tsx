@@ -52,7 +52,7 @@ const AllTripsAction = () => {
 
   return (
     <div className="relative flex mx-auto justify-center items-center w-full ">
-      <div className="relative grid  grid-cols-1 md:grid-cols-3 xl:grid-cols-4  gap-8 mt-10 max-w-7xl h-[85vh]">
+      <div className="relative grid  grid-cols-1 md:grid-cols-3 xl:grid-cols-4  gap-8 mt-10 max-w-7xl">
         {data &&
           data.map((item, idx) => (
             <BlurFade onlyOnce={false} key={idx} delay={0.3 + idx * 0.1} inView>
