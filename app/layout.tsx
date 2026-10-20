@@ -47,7 +47,7 @@ export default async function RootLayout({
               // style={customStyle}
             >
               <Toaster />
-              <div className="mx-4 md:mx-8">{children}</div>
+              <div className="mx-4 lg:mx-8">{children}</div>
             </body>
           </html>
           <Footer1Organism />

@@ -60,6 +60,11 @@ const AllTripsAction = () => {
                 key={idx}
                 trip={item}
                 imageSrc={item.itinerary[0].activities[0].place_image_url}
+                // imageSrc2={
+                //   item.itinerary[1].activities[0].place_image_url
+                //     ? item.itinerary[1].activities[0].place_image_url
+                //     : undefined
+                // }
               />
             </BlurFade>
           ))}

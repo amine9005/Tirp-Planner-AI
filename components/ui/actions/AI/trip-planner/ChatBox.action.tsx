@@ -11,7 +11,9 @@ const ChatBoxAction = () => {
   const { generateTripAndSaveTrip } = useTripPlanHook();
 
   useEffect(() => {
-    generateTripAndSaveTrip();
+    console.log("use final: ", isFinal);
+
+    if (isFinal) generateTripAndSaveTrip();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinal]);

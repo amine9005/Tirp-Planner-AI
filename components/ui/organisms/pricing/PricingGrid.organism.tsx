@@ -23,10 +23,10 @@ export const PricingGridOrganism = ({
   pricingList,
   data,
 }: Props) => {
-  console.log(
-    "data is ",
-    JSON.stringify(data) + " isPending " + isPending + " error " + error,
-  );
+  // console.log(
+  //   "data is ",
+  //   JSON.stringify(data) + " isPending " + isPending + " error " + error,
+  // );
 
   if (error) {
     console.log("userDataError  ", error);

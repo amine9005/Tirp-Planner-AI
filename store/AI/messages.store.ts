@@ -8,6 +8,7 @@ type MessagesState = {
   switchView: number;
   isLoading: boolean;
   isFinal: boolean;
+  isLoadingResult: boolean;
   success: boolean;
   userMessage: string;
   setIsLoading: (value: boolean) => void;
@@ -17,6 +18,7 @@ type MessagesState = {
   setMessages: (value: MessageAISchemaType[]) => void;
   setUserMessage: (value: string) => void;
   setSwitchView: (value: number) => void;
+  setIsLoadingResult: (value: boolean) => void;
 };
 
 export const useAIMessagesStore = create<MessagesState>((set) => ({
@@ -26,7 +28,9 @@ export const useAIMessagesStore = create<MessagesState>((set) => ({
   isFinal: false,
   success: false,
   userMessage: "",
+  isLoadingResult: false,
   switchView: 1,
+  setIsLoadingResult: (value) => set({ isLoadingResult: value }),
   setTripPlan: (value) => set({ tripPlan: value }),
   setSuccess: (value) => set({ success: value }),
   setUserMessage: (value) => set({ userMessage: value }),

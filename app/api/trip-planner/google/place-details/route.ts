@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (e) {
     return NextResponse.json(
-      { message: "Failed to  create trip plan ", e },
+      { message: "Failed to fetch place data from google ", e },
       { status: 500 },
     );
   }

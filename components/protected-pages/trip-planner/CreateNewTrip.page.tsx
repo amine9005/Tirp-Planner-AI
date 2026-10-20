@@ -127,7 +127,7 @@ const CreateNewTripPage = () => {
     <OneTwoLayout
       left={<ChatBoxAction />}
       right={
-        <div className="relative col-span-2">
+        <div className="relative col-span-1 lg:col-span-2">
           {activeIndex == 1 && <GlobalMapOrganism />}
           {activeIndex == 2 && <TripPlannerAction />}
 

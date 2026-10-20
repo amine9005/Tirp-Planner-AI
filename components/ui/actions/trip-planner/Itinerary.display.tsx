@@ -13,7 +13,7 @@ const ItineraryCard = ({ dayData }: { dayData: ItineraryType }) => {
         </strong>
       </P>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {dayData.activities.map((activity, idx) => (
           <BlurFade onlyOnce={false} key={idx} delay={0.3 + idx * 0.1} inView>
             <ActivityCardAction key={idx} activity={activity} />

@@ -78,16 +78,16 @@ const ViewTripAction = () => {
 
   const { error, data, isPending } = useGetTripByIdQuery(params?.id);
 
-  console.log(
-    "data ",
-    JSON.stringify(data),
-    " error ",
-    error,
-    "isLoadingUserData ",
-    isLoadingUserData,
-    " is Pending ",
-    isPending,
-  );
+  // console.log(
+  //   "data ",
+  //   JSON.stringify(data),
+  //   " error ",
+  //   error,
+  //   "isLoadingUserData ",
+  //   isLoadingUserData,
+  //   " is Pending ",
+  //   isPending,
+  // );
 
   if (error) {
     console.log("userDataError  ", error);
@@ -138,7 +138,7 @@ const ViewTripAction = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-5 mt-2 md:mt-8">
+    <div className="grid grid-cols-1 lg:grid-cols-5 mt-2 md:mt-8">
       <div className="col-span-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <TripPlannerTimelineOrganism tripPlan={data!} />
       </div>

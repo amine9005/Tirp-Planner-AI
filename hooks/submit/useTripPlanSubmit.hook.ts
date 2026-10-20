@@ -12,8 +12,10 @@ export function useTripPlanHook() {
   const setSuccess = useAIMessagesStore((state) => state.setSuccess);
   const success = useAIMessagesStore((state) => state.success);
   const { mutateAsync: sendMessage } = useAI_Mutation();
-  const isLoading = useAIMessagesStore((state) => state.isLoading);
-  const setIsLoading = useAIMessagesStore((state) => state.setIsLoading);
+  const isLoadingResult = useAIMessagesStore((state) => state.isLoadingResult);
+  const setIsLoadingResult = useAIMessagesStore(
+    (state) => state.setIsLoadingResult,
+  );
 
   const { data } = useUserQuery();
 
@@ -53,12 +55,10 @@ export function useTripPlanHook() {
     if (isFinal) {
       try {
         // console.log("generating trip Itinerary...");
-        setIsLoading(true);
         const tripItinerary = await sendMessage({
           messages: messages,
           isFinal: isFinal,
         });
-        setIsLoading(false);
 
         // console.log("tripItinerary: ", tripItinerary);
         setSuccess(true);
@@ -74,7 +74,7 @@ export function useTripPlanHook() {
 
   const generateTripAndSaveTrip = async () => {
     // console.log("finalizing");
-
+    setIsLoadingResult(true);
     const trip_string = await generateTrip({ messages, isFinal });
     // console.log("trip string: ", trip_string);
 
@@ -84,7 +84,8 @@ export function useTripPlanHook() {
         // console.log("result json ", result);
         setTripPlan(result.trip_plan);
         console.log("trip plan result ", result.trip_plan);
-        saveTripPlan(result.trip_plan);
+        await saveTripPlan(result.trip_plan);
+
         setSuccess(true);
       } catch (e) {
         console.log("error ", e);
@@ -92,13 +93,14 @@ export function useTripPlanHook() {
     } else {
       setSuccess(false);
     }
+    setIsLoadingResult(false);
   };
 
   return {
     saveTripPlan,
     generateTripAndSaveTrip,
     success,
-    isLoading,
+    isLoadingResult,
     tripPlan,
   };
 }

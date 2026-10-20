@@ -16,7 +16,7 @@ const TripPlannerTimelineOrganism = ({
     {
       title: "Hotels",
       content: (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 gap-8 ">
           {tripPlan?.hotels.map((hotel, idx) => {
             return (
               <BlurFade
@@ -38,7 +38,7 @@ const TripPlannerTimelineOrganism = ({
     })),
   ];
   return (
-    <div className="relative  md:mx-3 h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
+    <div className="relative lg:mx-3 min-h-[85vh] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full col-span-2 gap-2">
       <Timeline
         data={data}
         mainTitle={

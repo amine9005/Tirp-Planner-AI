@@ -18,14 +18,15 @@ const TripCard = ({
   trip: TripPlanType;
   imageSrc?: string;
 }) => {
-  console.log("trip ", imageSrc);
+  console.log("trip name ", trip.origin + " To " + trip.destination);
+  console.log("image1 ", imageSrc);
   return (
     <div className="relative justify-between items-center flex flex-col gap-1 hover:scale-105 transition-all duration-300 hover:opacity-85 h-130 max-h-130">
       <Image
         src={imageSrc ? imageSrc : "/Nature-Image.jpg"}
         width={400}
         height={200}
-        alt={"/destination-image"}
+        alt={"Destination Image"}
         className="rounded-xl object-cover w-full h-50 shadow pb-2"
       />
       <H2 className="font-semibold" size={"lg"}>

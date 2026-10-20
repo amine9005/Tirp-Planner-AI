@@ -4,9 +4,11 @@ import { useTripPlanHook } from "@/hooks/submit/useTripPlanSubmit.hook";
 import { useAIMessagesStore } from "@/store/AI/messages.store";
 
 const FinalTripAction = () => {
-  const { generateTripAndSaveTrip, isLoading, success } = useTripPlanHook();
+  const { generateTripAndSaveTrip, isLoadingResult, success } =
+    useTripPlanHook();
   const activeIndex = useAIMessagesStore((state) => state.switchView);
   const setActiveIndex = useAIMessagesStore((state) => state.setSwitchView);
+  console.log("is loading final ui: ", isLoadingResult);
 
   const handle_map_switch = () => {
     // console.log("active index: ", activeIndex);
@@ -27,19 +29,19 @@ const FinalTripAction = () => {
       {success ? (
         <Button
           onClick={() => handle_map_switch()}
-          disabled={isLoading}
+          disabled={isLoadingResult}
           className="mt-4 w-full"
         >
           {activeIndex === 1 ? "View Trip" : "View Map"}
         </Button>
-      ) : isLoading ? (
-        <Button disabled={isLoading} className="mt-4 w-full">
+      ) : isLoadingResult ? (
+        <Button disabled={isLoadingResult} className="mt-4 w-full">
           Loading...{" "}
         </Button>
       ) : (
         <Button
           onClick={() => generateTripAndSaveTrip()}
-          disabled={isLoading}
+          disabled={isLoadingResult}
           className="mt-4 w-full"
         >
           Try Again
