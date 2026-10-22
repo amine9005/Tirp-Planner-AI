@@ -54,6 +54,7 @@ const PaymentButtonMolecule = ({
         returnUrl,
         subscriptionId,
       });
+      console.log("resp: ", resp);
       seLoading(false);
       redirect(resp.data.data.url);
     } else {

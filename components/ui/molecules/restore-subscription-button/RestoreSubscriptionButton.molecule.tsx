@@ -20,7 +20,7 @@ const RestoreSubscriptionButtonMolecule = ({
 
   const handle_click = async ({ referenceId, subscriptionId }: Props) => {
     seLoading(true);
-    const resp = await restoreSubscription({
+    await restoreSubscription({
       referenceId,
       subscriptionId,
     });

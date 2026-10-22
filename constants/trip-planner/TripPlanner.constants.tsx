@@ -40,7 +40,7 @@ export const PricingListData: PricingCardProps[] = [
 
   {
     title: "Explorer",
-    popular: 1,
+    popular: 0,
     price: 45.99,
     description: "Best For Serious Explorers and Travelers and Journalist.",
     buttonText: "Upgrade",

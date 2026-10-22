@@ -7,6 +7,7 @@ import PaymentButtonMolecule from "@/components/ui/molecules/payment-button/Paym
 import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
 import { User } from "better-auth";
 import CancelSubscriptionDialog from "@/components/ui/organisms/dialog/subscription/CancelSubscription.dialog";
+// import BillingPortalButtonMolecule from "@/components/ui/molecules/billing-portal-button/BillingPortalButton.molecule";
 
 const SubscriptionAction = ({
   pricing,
@@ -69,12 +70,24 @@ const SubscriptionAction = ({
       );
     }
   }
+  // console.log("data: ", data);
+  // return (
+  //   <BillingPortalButtonMolecule
+  //     referenceId={userData?.id}
+  //     returnUrl="/pricing"
+  //     text={
+  //       pricing.title.toLocaleUpperCase() === "FREE"
+  //         ? "Manage Subscription"
+  //         : "Upgrade"
+  //     }
+  //   />
+  // );
   return (
     <PaymentButtonMolecule
       successUrl={pricing.successUrl!}
       cancelUrl={pricing.cancelUrl!}
       returnUrl={pricing.returnUrl!}
-      subscriptionId={data && data.stripeSubscriptionId!}
+      subscriptionId={data && data.stripeSubscriptionId}
       plan={pricing.plan!}
       href={pricing.href}
       text={pricing.buttonText}
