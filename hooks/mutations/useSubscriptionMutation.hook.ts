@@ -90,3 +90,32 @@ export const useRestoreSubscriptionHook = () => {
     },
   });
 };
+
+export const useCancelSubscriptionHook = () => {
+  const queryClient = useQueryClient();
+  const useCancelSubscriptionHookHookFn = async ({
+    referenceId,
+    subscriptionId,
+    returnUrl,
+  }: {
+    referenceId: string;
+    subscriptionId: string;
+    returnUrl: string;
+  }) => {
+    // console.log("subscription details", plan, successUrl, cancelUrl, returnUrl);
+
+    const response = await axiosInstance.post("/api/subscriptions/cancel", {
+      referenceId,
+      subscriptionId,
+      returnUrl,
+    });
+    return response;
+  };
+
+  return useMutation({
+    mutationFn: useCancelSubscriptionHookHookFn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["subscription"] });
+    },
+  });
+};

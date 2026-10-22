@@ -1,5 +1,5 @@
 "use client";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/atoms/button/button";
 import { useState } from "react";
 import { useRestoreSubscriptionHook } from "@/hooks/mutations/useSubscriptionMutation.hook";
@@ -24,7 +24,8 @@ const RestoreSubscriptionButtonMolecule = ({
       referenceId,
       subscriptionId,
     });
-    redirect(resp.data.data.url);
+    // console.log("resp: ", resp);
+    // redirect(resp.data.data.url);
   };
 
   return (

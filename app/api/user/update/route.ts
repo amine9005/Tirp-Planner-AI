@@ -13,7 +13,7 @@ export async function POST(
     const { limit, userId } = await req.json();
     console.log("limit", limit, " userId ", userId);
 
-    if (!limit || limit < 0) {
+    if (limit === undefined || limit < 0) {
       return NextResponse.json(
         { message: "Invalid limit value" },
         { status: 400 },

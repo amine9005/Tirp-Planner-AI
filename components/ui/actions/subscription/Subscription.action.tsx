@@ -2,10 +2,11 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/atoms/button/button.variants";
 import { H2 } from "@/components/ui/atoms/heading/heading2";
 import RestoreSubscriptionButtonMolecule from "@/components/ui/molecules/restore-subscription-button/RestoreSubscriptionButton.molecule";
-import BillingPortalButtonMolecule from "@/components/ui/molecules/billing-portal-button/BillingPortalButton.molecule";
+
 import PaymentButtonMolecule from "@/components/ui/molecules/payment-button/PaymentButton.molecule";
 import { PricingCardProps, SubscriptionDataType } from "@/types/pricing.types";
 import { User } from "better-auth";
+import CancelSubscriptionDialog from "@/components/ui/organisms/dialog/subscription/CancelSubscription.dialog";
 
 const SubscriptionAction = ({
   pricing,
@@ -14,7 +15,7 @@ const SubscriptionAction = ({
 }: {
   pricing: PricingCardProps;
   userData: User | undefined;
-  data: SubscriptionDataType | null;
+  data: SubscriptionDataType | null | undefined;
 }) => {
   if (!userData)
     return (
@@ -55,10 +56,15 @@ const SubscriptionAction = ({
       );
     } else {
       return (
-        <BillingPortalButtonMolecule
-          referenceId={userData?.id}
+        <CancelSubscriptionDialog
+          subscriptionId={data!.stripeSubscriptionId!}
+          referenceId={userData!.id}
           returnUrl="/pricing"
-          text={"Manage Subscription"}
+          text={"Do You Want To Cancel Your current Subscription ?"}
+          // , Changes Will Take At The End Of Your Subscription Period
+          id="cancel-sub"
+          title="Cancel Subscription"
+          name="Cancel Subscription"
         />
       );
     }

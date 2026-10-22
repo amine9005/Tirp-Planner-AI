@@ -14,7 +14,8 @@ import {
 import { Check } from "lucide-react";
 import { Badge } from "@/components/ui/atoms/badge/badge";
 import { User } from "better-auth";
-import PortalBaseSubscriptionAction from "@/components/ui/actions/subscription/PortalBaseSubscription.action";
+
+import SubscriptionAction from "@/components/ui/actions/subscription/Subscription.action";
 const PricingCard = ({
   pricing,
   userData,
@@ -56,11 +57,16 @@ const PricingCard = ({
 
       <CardContent>
         {" "}
-        <PortalBaseSubscriptionAction
+        <SubscriptionAction
           data={data}
           pricing={pricing}
           userData={userData}
         />{" "}
+        {/* <PortalBaseSubscriptionAction
+          data={data}
+          pricing={pricing}
+          userData={userData}
+        />{" "} */}
       </CardContent>
 
       <hr className="w-4/5 mx-auto mb-4" />

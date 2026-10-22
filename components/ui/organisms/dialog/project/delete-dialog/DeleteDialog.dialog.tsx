@@ -44,7 +44,7 @@ const DeleteProjectDialog = ({ title, text, id }: Props) => {
       <DialogTrigger asChild>
         <Trash2Icon className="size-5 hover:text-destructive cursor-pointer hover:scale-110" />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-106.25">
+      <DialogContent className="sm:max-w-106.25" aria-describedby={text}>
         <DialogHeader>
           <DialogTitle className="text-destructive">{title}</DialogTitle>
         </DialogHeader>

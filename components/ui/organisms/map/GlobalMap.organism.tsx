@@ -14,7 +14,7 @@ const GlobalMapOrganism = ({ tripData }: Props) => {
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const markers: mapboxgl.Marker[] = [];
   const tripPlan = useAIMessagesStore((state) => state.tripPlan);
-  const { isFinal } = useAIMessagesStore();
+  const { updateMap } = useAIMessagesStore();
   const [data, setData] = useState<TripPlanType | null>();
   const accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
   const [dataLoaded, setDataLoaded] = useState<boolean>(false);
@@ -79,7 +79,7 @@ const GlobalMapOrganism = ({ tripData }: Props) => {
       if (mapRef.current) mapRef.current.remove();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dataLoaded, isFinal]);
+  }, [dataLoaded, updateMap]);
 
   return (
     <div

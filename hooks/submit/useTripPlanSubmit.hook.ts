@@ -11,6 +11,7 @@ export function useTripPlanHook() {
   const { mutateAsync: saveTripPlaMt } = useSaveTripPlanMutation();
   const setSuccess = useAIMessagesStore((state) => state.setSuccess);
   const success = useAIMessagesStore((state) => state.success);
+  const setUpdateMap = useAIMessagesStore((state) => state.setUpdateMap);
   const { mutateAsync: sendMessage } = useAI_Mutation();
   const isLoadingResult = useAIMessagesStore((state) => state.isLoadingResult);
   const setIsLoadingResult = useAIMessagesStore(
@@ -83,9 +84,9 @@ export function useTripPlanHook() {
         const result = aiResponseToJSON(trip_string);
         // console.log("result json ", result);
         setTripPlan(result.trip_plan);
-        console.log("trip plan result ", result.trip_plan);
+        // console.log("trip plan result ", result.trip_plan);
         await saveTripPlan(result.trip_plan);
-
+        setUpdateMap(true);
         setSuccess(true);
       } catch (e) {
         console.log("error ", e);

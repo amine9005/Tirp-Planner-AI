@@ -9,6 +9,7 @@ type MessagesState = {
   isLoading: boolean;
   isFinal: boolean;
   isLoadingResult: boolean;
+  updateMap: boolean;
   success: boolean;
   userMessage: string;
   setIsLoading: (value: boolean) => void;
@@ -19,6 +20,7 @@ type MessagesState = {
   setUserMessage: (value: string) => void;
   setSwitchView: (value: number) => void;
   setIsLoadingResult: (value: boolean) => void;
+  setUpdateMap: (value: boolean) => void;
 };
 
 export const useAIMessagesStore = create<MessagesState>((set) => ({
@@ -29,6 +31,7 @@ export const useAIMessagesStore = create<MessagesState>((set) => ({
   success: false,
   userMessage: "",
   isLoadingResult: false,
+  updateMap: false,
   switchView: 1,
   setIsLoadingResult: (value) => set({ isLoadingResult: value }),
   setTripPlan: (value) => set({ tripPlan: value }),
@@ -38,4 +41,5 @@ export const useAIMessagesStore = create<MessagesState>((set) => ({
   setIsFinal: (value) => set({ isFinal: value }),
   setMessages: (value) => set({ messages: value }),
   setSwitchView: (value) => set({ switchView: value }),
+  setUpdateMap: (value) => set({ updateMap: value }),
 }));
