@@ -1,3 +1,4 @@
+"use server";
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
@@ -100,5 +101,3 @@ export const auth = betterAuth({
     }),
   ],
 });
-
-export type Session = typeof auth.$Infer.Session;

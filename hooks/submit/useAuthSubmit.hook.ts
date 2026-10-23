@@ -1,6 +1,6 @@
 import {
-  requestResetPasswordAction,
-  resetPasswordAction,
+  // requestResetPasswordAction,
+  // resetPasswordAction,
   signInAction,
   signUpAction,
 } from "@/app/api/actions/auth/auth.controller";
@@ -58,7 +58,7 @@ export function useSignInSubmit(form: SignInFormType) {
       }
 
       if (isNotVerified) {
-        redirect("/verify-email");
+        // redirect("/verify-email");
       }
       if (success) {
         // const url = localStorage.getItem("stripe_payment_link");
@@ -66,7 +66,7 @@ export function useSignInSubmit(form: SignInFormType) {
         //   localStorage.removeItem("stripe_payment_link");
         //   redirect(url);
         // }
-        redirect("/dashboard");
+        redirect("/");
       }
       setLoading(false);
     },
@@ -102,7 +102,7 @@ export function useSignUpSubmit(form: SignUpFormType) {
       }
 
       if (success) {
-        redirect("/verify-email");
+        // redirect("/verify-email");
       }
       setLoading(false);
     },
@@ -112,71 +112,71 @@ export function useSignUpSubmit(form: SignUpFormType) {
   return { onSubmit, loading };
 }
 
-export function useRequestResetPasswordSubmit(form: EmailFormType) {
-  const [loading, setLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+// export function useRequestResetPasswordSubmit(form: EmailFormType) {
+//   const [loading, setLoading] = useState(false);
+//   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onSubmit: SubmitHandler<EmailSchemaType> = useCallback(
-    async (data) => {
-      setLoading(true);
+//   const onSubmit: SubmitHandler<EmailSchemaType> = useCallback(
+//     async (data) => {
+//       setLoading(true);
 
-      try {
-        const email = data.email as string;
+//       try {
+//         const email = data.email as string;
 
-        await requestResetPasswordAction(email);
-        setIsSubmitted(true);
-      } catch (error) {
-        if (error instanceof Error && error.message.includes("Email")) {
-          form.setError("email", {
-            type: "custom",
-            message: "Email Does NOT Exists",
-          });
-        } else {
-          toast.error("Something went wrong. Please try again.");
-          console.log("error ", error);
-        }
-      }
+//         await requestResetPasswordAction(email);
+//         setIsSubmitted(true);
+//       } catch (error) {
+//         if (error instanceof Error && error.message.includes("Email")) {
+//           form.setError("email", {
+//             type: "custom",
+//             message: "Email Does NOT Exists",
+//           });
+//         } else {
+//           toast.error("Something went wrong. Please try again.");
+//           console.log("error ", error);
+//         }
+//       }
 
-      setLoading(false);
-    },
-    [form],
-  );
-  return { onSubmit, loading, isSubmitted };
-}
+//       setLoading(false);
+//     },
+//     [form],
+//   );
+//   return { onSubmit, loading, isSubmitted };
+// }
 
-export function useResetPasswordSubmit(token: string | null) {
-  const [loading, setLoading] = useState(false);
+// export function useResetPasswordSubmit(token: string | null) {
+//   const [loading, setLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<PasswordSchemaType> = useCallback(
-    async (data) => {
-      let success = false;
-      setLoading(true);
-      try {
-        if (!token) {
-          throw new Error("token does not exist");
-        }
+//   const onSubmit: SubmitHandler<PasswordSchemaType> = useCallback(
+//     async (data) => {
+//       let success = false;
+//       setLoading(true);
+//       try {
+//         if (!token) {
+//           throw new Error("token does not exist");
+//         }
 
-        const password = data.password as string;
+//         const password = data.password as string;
 
-        await resetPasswordAction(password, token);
-        success = true;
-      } catch (error) {
-        if (error instanceof Error && error.message.includes("token")) {
-          toast.error("Invalid token .");
-          console.log("error ", error);
-        } else {
-          toast.error("Something went wrong. Please try again.");
-          console.log("error ", error);
-        }
-      }
+//         await resetPasswordAction(password, token);
+//         success = true;
+//       } catch (error) {
+//         if (error instanceof Error && error.message.includes("token")) {
+//           toast.error("Invalid token .");
+//           console.log("error ", error);
+//         } else {
+//           toast.error("Something went wrong. Please try again.");
+//           console.log("error ", error);
+//         }
+//       }
 
-      if (success) {
-        redirect("/sign-in");
-      }
-      setLoading(false);
-    },
+//       if (success) {
+//         redirect("/sign-in");
+//       }
+//       setLoading(false);
+//     },
 
-    [token],
-  );
-  return { onSubmit, loading };
-}
+//     [token],
+//   );
+//   return { onSubmit, loading };
+// }

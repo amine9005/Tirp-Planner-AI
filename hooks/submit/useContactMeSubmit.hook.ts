@@ -1,5 +1,5 @@
 "use client";
-import { sendContactMeEmailAction } from "@/app/api/actions/emails/emails.controller";
+import { sendContactMeEmailAction } from "@/pages/api/emails/emails.controller";
 import { ContactMeSchemaType } from "@/validations/ContactMe.zod";
 import { redirect } from "next/navigation";
 import { useCallback, useState } from "react";
