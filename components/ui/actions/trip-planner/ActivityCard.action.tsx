@@ -10,20 +10,20 @@ const ActivityCardAction = ({ activity }: { activity: ActivityType }) => {
 
   const [placeImage, setPlaceImage] = useState<string>("");
 
-  const fetchPlaceImage = async () => {
-    try {
-      const resp = await getPlaceImage({
-        placeName: activity.place_name,
-        per_page: 1,
-        page_number: 1,
-      });
-      setPlaceImage(resp.data.data.results[0].urls.small);
-    } catch (e) {
-      console.log("error fetching place image: ", e);
-    }
-  };
-
   useEffect(() => {
+    const fetchPlaceImage = async () => {
+      try {
+        const resp = await getPlaceImage({
+          placeName: activity.place_name,
+          per_page: 1,
+          page_number: 1,
+        });
+        setPlaceImage(resp.data.data.results[0].urls.small);
+      } catch (e) {
+        console.log("error fetching place image: ", e);
+      }
+    };
+
     fetchPlaceImage();
     // getPlaceImage({
     //   placeName: activity.place_name,
